@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">组件</string>
+    <string name="pick">选择</string>
+    <string name="cancel">取消</string>
+    <string name="send">发送</string>
+    <string name="sd_error">SD卡异常</string>
+    <string name="sd_no_read_permission">无SD卡读取权限,请申请权限</string>
+    <string name="more">更多</string>
+    <string name="collapse">收起</string>
+    <string name="china">中国</string>
+    <string name="test1">测试\n 你好</string>
+    <string name="test2">测试2\\n 你好</string>
+</resources>

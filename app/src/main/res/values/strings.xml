@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name" translatable="false" >CompoentDemo</string>
+    <string name="pick">选择</string>
+    <string name="test3">开始换行
+                                换行结束</string>
+    <string name="test4" translatable="false">开始换行
+                                换行结束</string>
+    <string name="test5" translatable="true">测试</string>
+    <string name="cancel">取消</string>
+    <string name="send">发送</string>
+    <string name="sd_error">SD卡异常</string>
+    <string name="sd_no_read_permission">NO permission</string>
+    <string name="more">更多</string>
+    <string name="collapse">收起</string>
+    <string name="china">The people\'s republic of China</string>
+    <string name="test1">测试\n 你好</string>
+    <string name="test2">测试2\\n 你好</string>
+</resources>
