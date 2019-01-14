@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
             "ImageComFragment", "UILFragement", "CheckBoxFragment", "ItemClickFragment", "FrescoFragment", "GlideFragment",
             "NetFragment", "FileChoiceFragment", "AdjustNumBtnFragment", "ParcelableFragment", "JsFragment", "WebLoadFragment",
             "DialogFragment", "PickVehicelFragment", "AutoFitFragment", "CollapseTextFragment", "WeChatPayFragment",
-            "ExpandListFragment","QRCodeFragment","ConstraintFragment","RemoteServiceFragment","GestureFragment",
-            "FuncPreviewFragment","BaseUIFragment"
+            "ExpandListFragment", "QRCodeFragment", "ConstraintFragment", "RemoteServiceFragment", "GestureFragment",
+            "FuncPreviewFragment", "BaseUIFragment", "CameraFragment"
     };
 
     private final String packageName = "com.example.thinkdo.fragment";

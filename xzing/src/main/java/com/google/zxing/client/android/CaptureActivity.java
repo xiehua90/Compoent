@@ -9,6 +9,7 @@ import com.google.zxing.client.android.camera.CameraManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

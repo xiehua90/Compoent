@@ -1,6 +1,5 @@
 package com.xh.translate.bean;
 
-import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,6 @@ public class Word {
     private String key;
     private boolean translatable = true;
     private Map<String, String> values;
-
 
     public String getKey() {
         return key;
@@ -35,14 +33,15 @@ public class Word {
         this.translatable = translatable;
     }
 
-    public void appendPair(@NonNull XmlPair pair, @NonNull String locales, boolean isDefaultLocales) {
+    public void appendPair(XmlPair pair, String locales, boolean isDefaultLocales) {
+        if (pair == null || locales == null) return;
         if (this.key == null || this.key.trim().equals("")) {
             if (!pair.getKey().trim().equals("")) {
                 this.key = pair.getKey();
             }
         }
 
-        if (isDefaultLocales){
+        if (isDefaultLocales) {
             this.translatable = pair.isTranslatable();
         }
 
@@ -53,8 +52,8 @@ public class Word {
         values.put(locales, pair.getValue());
     }
 
-    public XmlPair getXmlPair(String locales){
-        if (locales == null || values == null)return null;
+    public XmlPair getXmlPair(String locales) {
+        if (locales == null || values == null) return null;
         return new XmlPair(key, values.get(locales), translatable);
     }
 

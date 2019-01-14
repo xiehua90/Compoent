@@ -3,12 +3,10 @@ package com.xh.translate.bean;
 public class XmlPair {
     private String key;
     private String value;
-    boolean translatable = true;
+    private boolean translatable = true;
 
     public XmlPair() {
-
     }
-
 
     public XmlPair(String key, String value, boolean translatable) {
         this.key = key;

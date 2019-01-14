@@ -1,17 +1,13 @@
 package com.xh.translate.parse;
 
 
-import android.annotation.TargetApi;
 
 import com.xh.translate.PageConfig;
 import com.xh.translate.bean.Page;
 import com.xh.translate.bean.Word;
-import com.xh.translate.parse.Parse;
+import com.xh.translate.utils.FileUtils;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import java.io.FileWriter;
@@ -27,7 +23,7 @@ public class TxtParse implements Parse {
 
     @Override
     public Page read(String path, PageConfig config) {
-        String[] lines = readFile(path).split("\n");
+        String[] lines = FileUtils.readFile(path).split("\n");
         Page page = new Page();
         Map<String, Integer> colName = new HashMap<>();
         int firstVisibleLine = 0;
@@ -52,7 +48,7 @@ public class TxtParse implements Parse {
 
         page.setColumnName(colName, config);
 
-        if (page.getLocale() != null && !page.getLocale().isEmpty()) {
+        if (page.getLocaleList() != null && !page.getLocaleList().isEmpty()) {
             List<Word> words = new ArrayList<>();
             for (int i = firstVisibleLine + 1; i < lines.length; i++) {
                 String line = lines[i];
@@ -61,11 +57,11 @@ public class TxtParse implements Parse {
                 try {
                     Class c = Class.forName("com.xh.translate.bean.Word");
                     Object ob = c.newInstance();
-                    for (String name : page.getProperty()) {
+                    for (String name : page.getPropertyList()) {
                         int colIndex = page.getColumnIndexIgnoreCase(name);
-                        if (array.length > colIndex){
+                        if (array.length > colIndex) {
                             String value = array[colIndex].trim();
-                            if (!value.equals("")){
+                            if (!value.equals("")) {
                                 Field field = c.getDeclaredField(name);
                                 field.setAccessible(true);
                                 switch (field.getType().getName()) {
@@ -91,9 +87,9 @@ public class TxtParse implements Parse {
                     }
 
                     Map<String, String> map = new HashMap<>();
-                    for (String lan : page.getLocale()) {
+                    for (String lan : page.getLocaleList()) {
                         int colIndex = page.getColumnIndexIgnoreCase(lan);
-                        if (array.length > colIndex){
+                        if (array.length > colIndex) {
                             map.put(lan, array[colIndex]);
                         }
                     }
@@ -118,7 +114,12 @@ public class TxtParse implements Parse {
         return null;
     }
 
-    @TargetApi(24)
+
+    /**
+     * 一个Word对于txt中的一行,且各列中采用的"\t"作为分隔符，为不影响txt格式 会将字符中的一些特殊字符替换
+     * 字符中的"\n"会被替换成"\\n", "\n"会被替换成"    ";
+     * 其中"\n"换行符 被替换成 "\\n"在Android 中是可以换行的
+     **/
     @Override
     public void write(String path, Page page, PageConfig config) {
         if (page == null) return;
@@ -132,7 +133,7 @@ public class TxtParse implements Parse {
                 columnName.put(list[i], i);
             }
         } else {
-            columnName = page.getColumnName();
+            columnName = page.getColumnNameMap();
         }
         if (columnName == null) {
             throw new NumberFormatException("Column name is null");
@@ -148,6 +149,9 @@ public class TxtParse implements Parse {
 
         String[] titleRow = new String[maxCol];
         columnName.forEach((name, index) -> {
+            if (hasSpecialChar(name)) {
+                throw new NumberFormatException("Txt title Row can not contain \\n or \\t :" + name);
+            }
             titleRow[index] = name;
         });
 
@@ -161,7 +165,7 @@ public class TxtParse implements Parse {
                 if (word == null) continue;
                 String[] row = new String[maxCol];
                 try {
-                    List<String> property = page.getProperty();
+                    List<String> property = page.getPropertyList();
                     Class c = Class.forName("com.xh.translate.bean.Word");
 
                     if (property != null) {
@@ -172,37 +176,42 @@ public class TxtParse implements Parse {
                                 field.setAccessible(true);
                                 switch (field.getType().getName()) {
                                     case "java.lang.String":
-                                        row[index] = (String) field.get(word);
+                                        row[index] = replaceSpecialChar((String) field.get(word));
                                         break;
                                     case "boolean":
-                                        row[index] = String.valueOf(field.getBoolean(word));
+                                        if ("translatable".equals(field.getName())) {
+                                            if (!field.getBoolean(word)) {
+                                                row[index] = replaceSpecialChar(String.valueOf(field.getBoolean(word)));
+                                            }
+                                        } else {
+                                            row[index] = replaceSpecialChar(String.valueOf(field.getBoolean(word)));
+                                        }
                                         break;
                                     case "int":
-                                        row[index] = String.valueOf(field.getInt(word));
+                                        row[index] = replaceSpecialChar(String.valueOf(field.getInt(word)));
                                         break;
                                     case "float":
-                                        row[index] = String.valueOf(field.getFloat(word));
+                                        row[index] = replaceSpecialChar(String.valueOf(field.getFloat(word)));
                                         break;
                                     case "double":
-                                        row[index] = String.valueOf(field.getDouble(word));
+                                        row[index] = replaceSpecialChar(String.valueOf(field.getDouble(word)));
                                         break;
                                 }
                             }
                         }
                     }
 
-                    List<String> locales = page.getLocale();
+                    List<String> locales = page.getLocaleList();
                     if (locales != null) {
                         for (String col : locales) {
                             int index = page.getColumnIndexIgnoreCase(columnName, col);
                             if (index >= 0) {
                                 if (word.getValues() != null) {
-                                    row[index] = word.getValues().get(col);
+                                    row[index] = replaceSpecialChar(word.getValues().get(col));
                                 }
                             }
                         }
                     }
-
 
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
@@ -226,7 +235,7 @@ public class TxtParse implements Parse {
                     writer.write(buff.toString() + "\n");
                 }
                 writer.close();
-                System.out.print("file write over: " + path);
+                System.out.println("File write over: " + path);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -235,28 +244,19 @@ public class TxtParse implements Parse {
         }
     }
 
-    private String readFile(String path) {
-        File file = new File(path);
-        if (!file.exists()) {
-            throw new RuntimeException("file is not exist: " + path);
+    private boolean hasSpecialChar(String str) {
+        if (str != null) {
+            return str.contains(TAB) || str.contains("\n");
         }
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        return false;
+    }
 
-        try {
-            FileInputStream reader = new FileInputStream(file);
-            byte[] buff = new byte[0x1000];
-            int i = 0;
-            while ((i = reader.read(buff, 0, 0x1000)) > 0) {
-                byteArray.write(buff, 0, i);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String replaceSpecialChar(String str) {
+        if (str == null) return null;
 
-        return byteArray.toString();
+        str = str.replace("\n", "\\n");
+        str = str.replace(TAB, "    ");
+        return str;
     }
 
 }

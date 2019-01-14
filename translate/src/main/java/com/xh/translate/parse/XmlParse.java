@@ -5,12 +5,10 @@ import com.xh.translate.PageConfig;
 import com.xh.translate.bean.Page;
 import com.xh.translate.bean.Word;
 import com.xh.translate.bean.XmlPair;
-import com.xh.translate.parse.Parse;
+import com.xh.translate.utils.DateUtils;
+import com.xh.translate.utils.FileUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +45,7 @@ public class XmlParse implements Parse {
         }
         page.setColumnName(colName, config);
 
-        List<String> inLocales = page.getLocale();
+        List<String> inLocales = page.getLocaleList();
         if (inLocales != null && !inLocales.isEmpty()) {
             String defaultLocales = getDefaultLocales(page, config);
 
@@ -73,7 +71,6 @@ public class XmlParse implements Parse {
         }
     }
 
-
     /**
      * @param isReplace true 则替换的id, 否则则忽略
      */
@@ -88,9 +85,8 @@ public class XmlParse implements Parse {
 
         String source = "";
         if (file.exists()) {
-            source = readFile(file.getPath());
+            source = FileUtils.readFile(file.getPath());
         }
-
 
         List<XmlPair> out = new ArrayList<>();
 
@@ -113,8 +109,7 @@ public class XmlParse implements Parse {
         } else {
             out.addAll(data);
         }
-
-        if (out.isEmpty())return;
+        if (out.isEmpty()) return;
 
         StringBuilder builder = new StringBuilder();
 
@@ -124,7 +119,7 @@ public class XmlParse implements Parse {
 
         builder.append(source.replace("</resources>", ""));
 
-        String comment = String.format("<!--%s(%d)-->", getDate(), out.size());
+        String comment = String.format("<!--%s(%d)-->", DateUtils.getDate(), out.size());
 
         builder.append("\n" + comment + "\n");
         for (XmlPair pair : out) {
@@ -148,10 +143,6 @@ public class XmlParse implements Parse {
 
     }
 
-    public String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return format.format(new Date());
-    }
 
     private List<Word> pairsToWord(String defaultLocales, Map<String, List<XmlPair>> data) {
         if (data == null) return null;
@@ -218,10 +209,10 @@ public class XmlParse implements Parse {
      * entry.getValue()为要输出列所对应的文件夹名
      **/
     private Map<String, String> getWriteLocaleMap(Page page, PageConfig config) {
-        if (page == null || page.getLocale() == null) return null;
+        if (page == null || page.getLocaleList() == null) return null;
 
         Map<String, String> map = new HashMap<>();
-        List<String> locales = page.getLocale();
+        List<String> locales = page.getLocaleList();
 
         if (!locales.isEmpty()) {
             List<String> outLocales;
@@ -290,7 +281,7 @@ public class XmlParse implements Parse {
     private Map<String, List<XmlPair>> getAllXmlPairFromPage(Page page, List<String> limitLoc) {
         if (page == null) return null;
 
-        List<String> locales = limitLoc != null ? limitLoc : page.getLocale();
+        List<String> locales = limitLoc != null ? limitLoc : page.getLocaleList();
         List<Word> words = page.getWord();
 
         Map<String, List<XmlPair>> map = new HashMap<>();
@@ -320,7 +311,7 @@ public class XmlParse implements Parse {
      */
     private String getDefaultLocales(Page page, PageConfig config) {
         if (page == null) return null;
-        List<String> locales = page.getLocale();
+        List<String> locales = page.getLocaleList();
         if (locales == null || locales.isEmpty()) return null;
 
         if (config != null) {
@@ -347,7 +338,7 @@ public class XmlParse implements Parse {
     }
 
     private List<XmlPair> readXml(String xmlPath) {
-        String content = readFile(xmlPath);
+        String content = FileUtils.readFile(xmlPath);
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(content);
@@ -368,30 +359,6 @@ public class XmlParse implements Parse {
             list.add(pair);
         }
         return list;
-    }
-
-    private String readFile(String path) {
-        File file = new File(path);
-        if (!file.exists()) {
-            throw new RuntimeException("file is not exist: " + path);
-        }
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-
-        try {
-            FileInputStream reader = new FileInputStream(file);
-            byte[] buff = new byte[0x1000];
-            int i = 0;
-            while ((i = reader.read(buff, 0, 0x1000)) > 0) {
-                byteArray.write(buff, 0, i);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return byteArray.toString();
     }
 
 }

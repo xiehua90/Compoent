@@ -28,7 +28,7 @@ android {
             signingConfig signingConfigs.signing
         }
         debug {
-            signingConfig signingConfigs.signing
+//            signingConfig signingConfigs.signing
         }
     }
 

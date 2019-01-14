@@ -28,7 +28,7 @@ import java.util.concurrent.RejectedExecutionException;
 
 
 @SuppressWarnings("deprecation") // camera APIs
-final class AutoFocusManager implements Camera.AutoFocusCallback {
+public final class AutoFocusManager implements Camera.AutoFocusCallback {
 
   private static final String TAG = AutoFocusManager.class.getSimpleName();
 
@@ -46,7 +46,7 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
   private final Camera camera;
   private AsyncTask<?,?,?> outstandingTask;
 
-  AutoFocusManager(Context context, Camera camera) {
+  public AutoFocusManager(Context context, Camera camera) {
     this.camera = camera;
     String currentFocusMode = camera.getParameters().getFocusMode();
     useAutoFocus = FOCUS_MODES_CALLING_AF.contains(currentFocusMode);
@@ -98,7 +98,7 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
     }
   }
 
-  synchronized void stop() {
+  public synchronized void stop() {
     stopped = true;
     if (useAutoFocus) {
       cancelOutstandingTask();

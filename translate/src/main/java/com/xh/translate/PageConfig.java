@@ -1,8 +1,6 @@
 package com.xh.translate;
 
 
-import android.support.annotation.NonNull;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,8 +46,8 @@ public class PageConfig {
         return defaultLocalesColName;
     }
 
-    public void setDefaultLocalesColName(@NonNull String defaultLocalesColName) {
-        if (defaultLocalesColName.trim().equals("")) return;
+    public void setDefaultLocalesColName(String defaultLocalesColName) {
+        if (defaultLocalesColName == null || defaultLocalesColName.trim().equals("")) return;
         this.defaultLocalesColName = defaultLocalesColName;
     }
 
@@ -81,8 +79,8 @@ public class PageConfig {
         return referLocale;
     }
 
-    public void setReferLocale(@NonNull String referLocale) {
-        if (referLocale.trim().equals(""))return;
+    public void setReferLocale(String referLocale) {
+        if (referLocale == null || referLocale.trim().equals("")) return;
         this.referLocale = referLocale;
     }
 }

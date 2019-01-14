@@ -1,7 +1,6 @@
 package com.xh.translate.parse;
 
 
-import android.annotation.TargetApi;
 
 import com.xh.translate.PageConfig;
 import com.xh.translate.bean.Page;
@@ -35,7 +34,6 @@ import static org.apache.poi.ss.usermodel.Row.MissingCellPolicy.RETURN_BLANK_AS_
 
 public class ExcelParse implements Parse {
 
-
     /**
      * 注意事项
      * sheet.getLastRowNum() 返回的是Row下标
@@ -45,6 +43,7 @@ public class ExcelParse implements Parse {
     public Page read(String path, PageConfig config) {
         try {
             Workbook wb = new XSSFWorkbook(new FileInputStream(path));
+
             Sheet sheet = wb.getSheetAt(wb.getNumberOfSheets() - 1);
             Row titleRow = sheet.getRow(sheet.getFirstRowNum());
             if (titleRow == null) {
@@ -65,7 +64,7 @@ public class ExcelParse implements Parse {
             }
             page.setColumnName(colName, config);
 
-            if (page.getLocale() != null && !page.getLocale().isEmpty()) {
+            if (page.getLocaleList() != null && !page.getLocaleList().isEmpty()) {
                 List<Word> words = new ArrayList<>();
                 for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
                     Row row = sheet.getRow(i);
@@ -73,7 +72,7 @@ public class ExcelParse implements Parse {
                     try {
                         Class c = Class.forName("com.xh.translate.bean.Word");
                         Object ob = c.newInstance();
-                        for (String name : page.getProperty()) {
+                        for (String name : page.getPropertyList()) {
                             int colIndex = page.getColumnIndexIgnoreCase(name);
                             Cell cell = row.getCell(colIndex, RETURN_BLANK_AS_NULL);
                             if (cell != null) {
@@ -100,7 +99,7 @@ public class ExcelParse implements Parse {
                         }
 
                         Map<String, String> map = new HashMap<>();
-                        for (String lan : page.getLocale()) {
+                        for (String lan : page.getLocaleList()) {
                             int colIndex = page.getColumnIndexIgnoreCase(lan);
                             map.put(lan, getCellStringValueFromRow(row, colIndex));
                         }
@@ -127,7 +126,6 @@ public class ExcelParse implements Parse {
         return null;
     }
 
-    @TargetApi(24)
     @Override
     public void write(String path, Page page, PageConfig config) {
         if (page == null) return;
@@ -136,8 +134,6 @@ public class ExcelParse implements Parse {
         try {
             FileInputStream in = new FileInputStream(path);
             wb = new XSSFWorkbook(in);
-        } catch (FileNotFoundException e) {
-            wb = new XSSFWorkbook();
         } catch (IOException e) {
             wb = new XSSFWorkbook();
         }
@@ -173,7 +169,7 @@ public class ExcelParse implements Parse {
                 columnName.put(list[i], i);
             }
         } else {
-            columnName = page.getColumnName();
+            columnName = page.getColumnNameMap();
         }
         if (columnName == null) {
             throw new NumberFormatException("Column name is null");
@@ -193,7 +189,7 @@ public class ExcelParse implements Parse {
                 if (word == null) continue;
                 Row row = sheet.createRow(i + 1);
                 try {
-                    List<String> property = page.getProperty();
+                    List<String> property = page.getPropertyList();
                     Class c = Class.forName("com.xh.translate.bean.Word");
 
                     if (property != null) {
@@ -209,7 +205,11 @@ public class ExcelParse implements Parse {
                                         cell.setCellValue((String) field.get(word));
                                         break;
                                     case "boolean":
-                                        if (!field.getBoolean(word)) {
+                                        if ("translatable".equals(field.getName())) {
+                                            if (!field.getBoolean(word)) {
+                                                cell.setCellValue(field.getBoolean(word));
+                                            }
+                                        } else {
                                             cell.setCellValue(field.getBoolean(word));
                                         }
                                         break;
@@ -228,7 +228,7 @@ public class ExcelParse implements Parse {
                     }
 
 
-                    List<String> locales = page.getLocale();
+                    List<String> locales = page.getLocaleList();
                     if (locales != null) {
                         for (String col : locales) {
                             int index = page.getColumnIndexIgnoreCase(columnName, col);
@@ -241,8 +241,6 @@ public class ExcelParse implements Parse {
                             }
                         }
                     }
-
-
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (NoSuchFieldException e) {
@@ -255,14 +253,13 @@ public class ExcelParse implements Parse {
                 FileOutputStream out = new FileOutputStream(path);
                 wb.write(out);
                 out.close();
-                System.out.print("file write over: " + path);
+                System.out.println("File write over: " + path);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     private String getCellStringValueFromRow(Row row, int index) {
