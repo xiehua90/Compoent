@@ -16,6 +16,12 @@ fun printAdd(a: Int, b: Int) = print("${a + b}")
 
 
 fun main(args: Array<String>) {
+//    val man = Man("xiehua", 20)
+//    println(man)
+//    val bird = Bird("鸽子", 2)
+//    println(bird)
+
+
 //    printAdd(2, 3)
 //    Man().toString()
 //    forTest()
@@ -26,10 +32,26 @@ fun main(args: Array<String>) {
 
 //    println(list)
 //    list.forEach { println(it) }
-    list.sortedBy { it % 5 }
-            .forEach { println(it) }
+//    list.sortedBy { it % 5 }
+//            .forEach { println(it) }
 
-    list.apply
+//    list.apply
+
+
+
+    fun add(a: Int, b: Int) = a + b
+
+    var sum: (a: Int, b: Int) -> Int
+
+    sum = { a, b -> a + b }
+    println(sum(3, 5))
+    sum = fun(a: Int, b: Int): Int {
+        return a + b
+    }
+    println(sum(5, 5))
+    sum = ::add
+    println(sum(6, 10))
+
 }
 
 fun listTest() {
@@ -83,35 +105,3 @@ fun describe(obj: Any): String = when (obj) {
 
 }
 
-class Man {
-    var age: Int? = null
-    var name: String = "name"
-        set(value) {
-            print("set()")
-            field = value
-        }
-        get() {
-            println("get()")
-            return field
-        }
-
-    private var _table: Map<String, Int>? = null
-    var table: Map<String, Int>? = null
-        get() {
-            if (_table == null) {
-                _table = HashMap()
-            }
-            return _table ?: throw AssertionError("Set to null by another thread")
-        }
-
-
-    override fun toString(): String {
-        name = "xiehua"
-        val test = name
-
-        table;
-        _table
-
-        return super.toString()
-    }
-}
