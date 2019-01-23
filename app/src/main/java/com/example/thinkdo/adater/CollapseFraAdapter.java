@@ -47,7 +47,6 @@ public class CollapseFraAdapter extends RecyclerView.Adapter {
         holder.tvContent.setText(bean.getText());
         holder.setBean(bean, position);
 
-
         Log.d("TAG", "position = " + position + "  state=" + bean.getState());
         if (bean.getState() == CollapseBean.CollapseState.Init) {
 

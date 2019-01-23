@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.example.thinkdo.compoentdemo.R;
 import com.google.zxing.client.android.camera.AutoFocusManager;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CameraFragment extends Fragment implements SurfaceHolder.Callback, Camera.PictureCallback, Camera.ShutterCallback {
@@ -35,14 +38,32 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         View view = inflater.inflate(R.layout.frag_camera, container, false);
         surfaceView = view.findViewById(R.id.preview_view);
         imageView = view.findViewById(R.id.imageView);
-        view.findViewById(R.id.btn_capture).setOnClickListener(v->{
-            if (mCamera != null){
-                mCamera.takePicture( this, this, this);
+        view.findViewById(R.id.btn_capture).setOnClickListener(v -> {
+            if (mCamera != null) {
+                mCamera.takePicture(this, this, this);
             }
         });
-
+        test();
         imageView.setRotation(90);
         return view;
+    }
+
+    private void test() {
+        List<String> list = Arrays.asList(
+                "compoent://startRemoteDiagnose?arg=1",
+                "vnc://remoteID@10.240.5.183:5900/path?colorModel=0",
+                "http://www.java2s.com:8080/yourpath/fileName.htm?stove=10&path=32&id=4#harvic");
+
+
+        for (String url : list) {
+            Uri uri = Uri.parse(url);
+
+            String scheme = uri.getScheme();
+            String host = uri.getHost();
+            String path = uri.getPath();
+            int port = uri.getPort();
+            String userInfo = uri.getUserInfo();
+        }
     }
 
     private boolean safeCameraOpen() {
@@ -58,7 +79,6 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
         SurfaceHolder holder = surfaceView.getHolder();
         holder.addCallback(this);
-
     }
 
     @Override
@@ -117,19 +137,19 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
-        if (data == null){
+        if (data == null) {
             return;
         }
-        Bitmap bitmap = BitmapFactory.decodeByteArray(data,0, data.length, null);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
         imageView.setVisibility(View.VISIBLE);
         imageView.setImageBitmap(bitmap);
 
-        if (mCamera != null){
+        if (mCamera != null) {
             mCamera.startPreview();
         }
-        handler.postDelayed(()->
-            imageView.setVisibility(View.GONE)
-        ,3000);
+        handler.postDelayed(() ->
+                        imageView.setVisibility(View.GONE)
+                , 3000);
     }
 
     @Override

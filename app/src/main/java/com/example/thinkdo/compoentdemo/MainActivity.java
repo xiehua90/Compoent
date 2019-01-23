@@ -1,6 +1,7 @@
 package com.example.thinkdo.compoentdemo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,11 +60,17 @@ public class MainActivity extends AppCompatActivity {
 //                View item = listView.getChildAt(pos);
 //                item.getLocationInWindow(loc);
 //                Log.d("TAG", "pos=" + pos + " width=" + loc[0] + " height=" + loc[1]);
-
-
             }
         });
 
+
+        if (getIntent() != null) {
+            Intent intent = getIntent();
+            Uri uri = intent.getData();
+            if (uri != null) {
+                Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 
