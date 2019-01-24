@@ -25,6 +25,7 @@ buildscript {
         supportLibraryVersion = '28.0.0-rc01'
         workVersion = '1.0.0-alpha07'
         rxjava = '2.2.5'
+        dragger='2.21'
     }
 
     repositories {

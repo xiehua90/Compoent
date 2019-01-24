@@ -1,25 +1,33 @@
 package com.example.xh.java;
 
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import io.reactivex.Flowable;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.Single;
-import io.reactivex.functions.Consumer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observables.ConnectableObservable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainTest {
 
     public static void main(String[] args) {
-        rxJavaTest();
+//        rxJavaTest();
+        daggerTest();
+
+    }
+
+    public static void daggerTest() {
+//        new CoffeeShop().makeCoffee();
+
+//        DaggerZooComponent.builder();
     }
 
     public static void rxJavaTest() {
@@ -289,29 +297,49 @@ public class MainTest {
 //                .switchMap(it -> Observable.just(it).subscribeOn(Schedulers.newThread()))
 //                .blockingSubscribe(System.out::println);
 
-        Observable.range(3, 10)
-                .buffer(7, 7)
-                .flatMapIterable(it -> {
-                    println(it+" "+Thread.currentThread().getName());
-                    return it;
-                })
-//                .concatMapIterable(it -> {
+//        Observable.range(3, 10)
+//                .buffer(7, 7)
+//                .flatMapIterable(it -> {
 //                    println(it+" "+Thread.currentThread().getName());
 //                    return it;
 //                })
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(System.out::println);
+////                .concatMapIterable(it -> {
+////                    println(it+" "+Thread.currentThread().getName());
+////                    return it;
+////                })
+//                .subscribeOn(Schedulers.newThread())
+//                .subscribe(System.out::println);
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        Observable.just(new Man("just()", 0));
+//        Observable.create(emitter -> emitter.onNext(new Man("create()", 0)))
+////                .subscribe(System.out::println)
+//        ;
+
+
+//        ConnectableObservable<Long> observable = Observable.create((ObservableEmitter<Long> e) ->
+//                Observable.interval(10, TimeUnit.MILLISECONDS, Schedulers.computation())
+//                        .take(Integer.MAX_VALUE)
+//                        .subscribe(e::onNext)
+//        ).observeOn(Schedulers.newThread()).publish();
+//        observable.connect();
+//        Disposable disposable = observable.subscribe(it -> println("one:" + it));
+//        try {
+//            Thread.sleep(50);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        observable.subscribe(it -> println("         two:" + it));
+//
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
 
-//    public void publisherAndsubscriber() {
+    public void publisherAndsubscriber() {
 //        CompletableFuture<Void> subTask = null;
 //        // The publisher is closed when the try block exits
 //        try (SubmissionPublisher<Long> pub = new SubmissionPublisher<>()) {
@@ -331,7 +359,7 @@ public class MainTest {
 //                e.printStackTrace();
 //            }
 //        }
-//    }
+    }
 
     public static void println(String str) {
         System.out.println(str);

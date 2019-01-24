@@ -5,6 +5,9 @@ open class Animal(var name: String)
 
 open class Man(name: String, var age: Int) : Animal(name) {
 
+    init {
+        println("main initialized ${toString()}")
+    }
     private var _table: Map<String, Int>? = null
     var table: Map<String, Int>? = null
         get() {
@@ -16,7 +19,7 @@ open class Man(name: String, var age: Int) : Animal(name) {
 
 
     override fun toString(): String {
-        println("name:$name, age:$age")
+//        println("name:$name, age:$age")
         return super.toString()
     }
 }
