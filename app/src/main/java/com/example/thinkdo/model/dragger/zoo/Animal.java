@@ -1,4 +1,4 @@
-package com.example.thinkdo.model.dragger;
+package com.example.thinkdo.model.dragger.zoo;
 
 import javax.inject.Inject;
 
@@ -13,6 +13,7 @@ public class Animal {
 
     @Override
     public String toString() {
+        System.out.println(name);
         return super.toString();
     }
 }

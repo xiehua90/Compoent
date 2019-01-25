@@ -1,12 +1,15 @@
-package com.example.thinkdo.model.dragger;
+package com.example.thinkdo.model.dragger.zoo;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class Zoo {
-    @Inject Animal animal;
+    @Inject
+    @Named("Animal")
+    Animal animal;
 
     @Inject
-    Zoo(){
+    Zoo() {
     }
 
 //    @Inject
@@ -16,7 +19,7 @@ public class Zoo {
 
     @Override
     public String toString() {
-        System.out.println(animal.toString() + super.toString());
+        System.out.println(animal.toString() + "  " + super.toString());
         return super.toString();
     }
 }

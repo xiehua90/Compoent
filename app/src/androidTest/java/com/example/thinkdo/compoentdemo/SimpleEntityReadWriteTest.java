@@ -1,10 +1,7 @@
 package com.example.thinkdo.compoentdemo;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-
+import android.arch.persistence.room.Room;
 import com.example.thinkdo.db.AppDatabase;
 import com.example.thinkdo.db.dao.UserDao;
 import com.example.thinkdo.db.entity.User;
@@ -17,6 +14,8 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -29,6 +28,7 @@ public class SimpleEntityReadWriteTest {
 
     @Before
     public void createDb() {
+
         Context context = InstrumentationRegistry.getTargetContext();
         mDb = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
         mUserDao = mDb.getUserDao();

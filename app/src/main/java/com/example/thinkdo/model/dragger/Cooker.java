@@ -2,22 +2,19 @@ package com.example.thinkdo.model.dragger;
 
 import javax.inject.Inject;
 
-public class Cooker /**implements CoffeeMaker*/ {
+public class Cooker implements CoffeeMaker {
     String name;
     String coffeeKind;
 
-//    @Inject
+    @Inject
     public Cooker(String name, String coffeeKind) {
         this.name = name;
         this.coffeeKind = coffeeKind;
+        System.out.println("Cooker initialized");
     }
 
-    public String make(){
-        return name + " make " + coffeeKind;
+    @Override
+    public String makeCoffee() {
+        return coffeeKind + " Coffee is made by " + name + " Cooker";
     }
-
-//    @Override
-//    public String makeCoffee() {
-//        return name + " make " + coffeeKind;
-//    }
 }
