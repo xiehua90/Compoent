@@ -12,5 +12,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:21.0.3'
+    implementation "androidx.legacy:legacy-support-v4:$versionsSupport"
+    implementation "androidx.legacy:legacy-support-core-utils:$versionsSupport"
 }

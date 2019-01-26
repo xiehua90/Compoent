@@ -6,8 +6,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,6 +22,9 @@ import android.widget.ImageView;
 import com.example.thinkdo.adater.CollapseFraAdapter;
 import com.example.thinkdo.compoentdemo.R;
 import com.example.thinkdo.view.CollapseTextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by xh on 2018/4/14.

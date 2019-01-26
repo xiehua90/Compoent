@@ -1,12 +1,13 @@
 package com.example.thinkdo.model;
 
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class FuncPreviewViewModel extends ViewModel {
 

@@ -1,10 +1,12 @@
 package com.example.thinkdo.db.entity;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId"))
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+@Entity(indices = {@Index("userId")}, foreignKeys = @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId"))
 public class Book {
 
     @PrimaryKey(autoGenerate = true)

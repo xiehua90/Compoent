@@ -1,9 +1,10 @@
 package com.example.thinkdo.adater;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by xh on 2018/4/7.

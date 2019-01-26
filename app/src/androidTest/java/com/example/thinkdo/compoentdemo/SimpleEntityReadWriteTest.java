@@ -1,7 +1,6 @@
 package com.example.thinkdo.compoentdemo;
 
 import android.content.Context;
-import android.arch.persistence.room.Room;
 import com.example.thinkdo.db.AppDatabase;
 import com.example.thinkdo.db.dao.UserDao;
 import com.example.thinkdo.db.entity.User;
@@ -14,6 +13,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
+import androidx.room.Room;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 import static org.hamcrest.core.IsEqual.equalTo;

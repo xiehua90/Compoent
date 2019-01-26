@@ -6,9 +6,10 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.Locale;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by Administrator on 2016/4/22.
@@ -27,9 +28,9 @@ public class TransactionsActivity extends AppCompatActivity {
 
             if (fragment instanceof Fragment) {
                 getFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) fragment).commit();
-            } else if (fragment instanceof android.support.v4.app.Fragment) {
+            } else if (fragment instanceof androidx.fragment.app.Fragment) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,
-                        (android.support.v4.app.Fragment) fragment).commit();
+                        (androidx.fragment.app.Fragment) fragment).commit();
             }
 
 

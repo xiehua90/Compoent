@@ -1,14 +1,9 @@
 package com.example.thinkdo.adater;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LiveData;
-import android.graphics.Paint;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.example.thinkdo.compoentdemo.R;
@@ -16,6 +11,9 @@ import com.example.thinkdo.model.CollapseBean;
 import com.example.thinkdo.view.CollapseTextView;
 
 import java.util.ArrayList;
+
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by xh on 2018/4/14.
@@ -34,7 +32,7 @@ public class CollapseFraAdapter extends RecyclerView.Adapter {
         final MyHolder holder = new MyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_collapse_text, parent, false));
 
 //        LifecycleOwner
-        LiveData<String>a;
+        LiveData<String> a;
 //        a.ob
         return holder;
     }

@@ -1,7 +1,6 @@
 package com.example.thinkdo.adater;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import com.example.thinkdo.model.FuncNode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FuncPreViewReAdapter extends RecyclerView.Adapter<FuncPreViewReAdapter.MyViewHolder> {
     FuncNode mRootNode;

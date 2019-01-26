@@ -1,12 +1,8 @@
 package com.example.thinkdo.fragment;
 
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +15,11 @@ import com.example.thinkdo.adater.FuncPreViewReAdapter;
 import com.example.thinkdo.compoentdemo.R;
 import com.example.thinkdo.model.FuncNode;
 import com.example.thinkdo.model.FuncPreviewViewModel;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class FuncPreviewFragment extends Fragment {
