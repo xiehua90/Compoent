@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -26,12 +26,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$versionsSupport"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
-    implementation "com.google.android.material:material:$versionsSupport"
+    implementation _kotlin.stdlib
+    implementation support.app_compat
+    implementation support.design
+    implementation deps.constraint_layout
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
+    testImplementation deps.junit
+    androidTestImplementation espresso.core
+    androidTestImplementation atsl.runner
 }

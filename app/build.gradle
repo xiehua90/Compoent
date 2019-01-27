@@ -20,11 +20,12 @@ android {
         versionName "1.0"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
 
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.signing
         }
@@ -47,59 +48,58 @@ android {
 }
 
 dependencies {
+//    apply plugin: 'announce'
     implementation project(':xzing')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation ('com.facebook.fresco:fresco:0.11.0') {
-        exclude group: 'com.android.support:support-v4'
-    }
     implementation files('src/main/libs/AMap2DMap_2.9.0_AMapSearch_3.3.0_AMapLocation_2.5.1_20160616.jar')
-    implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
-    implementation 'com.bm.photoview:library:1.4.0'
-    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.braintreepayments.api:braintree:2.+'
-    apply plugin: 'announce'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.github.promeg:tinypinyin:2.0.3'
+    implementation deps.fresco
+    implementation deps.volley
+    implementation deps.photoview
+    implementation deps.universal_imageloader
+    implementation deps.glide
+    implementation deps.braintree
+    implementation butterknife.runtime
+    annotationProcessor butterknife.compiler
+
     // TinyPinyin核心包，约80KB
-    implementation 'com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3'
-//     可选，适用于Android的中国地区词典
-    implementation 'com.bigkoo:quicksidebar:1.0.3'
-    implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
-    implementation 'me.grantland:autofittextview:0.2.+'
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
+    implementation tinypinyin.runtime
+    implementation tinypinyin.android_cncity
 
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+    implementation deps.quicksidebar
+    implementation deps.stickyheadersrecyclerview
+    implementation deps.autofittextview
+    implementation deps.wechat_sdk
 
-    implementation "androidx.annotation:annotation:$versionsSupport"
-    implementation "androidx.appcompat:appcompat:$versionsSupport"
-    implementation "androidx.recyclerview:recyclerview:$versionsSupport"
-    implementation "androidx.cardview:cardview:$versionsSupport"
-    implementation "com.google.android.material:material:$versionsSupport"
-    implementation "androidx.legacy:legacy-support-v4:$versionsSupport"
-    implementation "androidx.legacy:legacy-support-core-utils:$versionsSupport"
+    implementation lifecycle.runtime
+    implementation lifecycle.extensions
+    implementation lifecycle.java8
+    annotationProcessor lifecycle.compiler
 
-    implementation "com.google.dagger:dagger:$dragger"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dragger"
-    implementation "com.google.dagger:dagger-android:$dragger"
-    implementation ("com.google.dagger:dagger-android-support:$dragger") {
-        exclude group: 'com.android.support:support-v4'
-    }
-    annotationProcessor "com.google.dagger:dagger-android-processor:$dragger"
+    implementation support.annotations
+    implementation support.app_compat
+    implementation support.recyclerview
+    implementation support.cardview
+    implementation support.design
+    implementation support.v4
+    implementation support.core_utils
 
-    androidTestImplementation 'junit:junit:4.12'
+    implementation deps.constraint_layout
 
-    implementation "androidx.room:room-runtime:$roomVersion"
-    annotationProcessor "androidx.room:room-compiler:$roomVersion" // use kapt for Kotlin
-    testImplementation "androidx.room:room-testing:$roomVersion"
-    implementation "androidx.room:room-rxjava2:$roomVersion"
-    implementation "androidx.room:room-coroutines:$roomVersion"
+    implementation dagger.runtime
+    annotationProcessor dagger.compiler
+    implementation dagger.android
+    implementation dagger.android_support
+    annotationProcessor dagger.android_support_compiler
 
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation deps.junit
+
+    implementation room.runtime
+    annotationProcessor room.compiler
+    testImplementation room.testing
+    implementation room.rxjava2
+    implementation room.coroutines
+
+    androidTestImplementation espresso.core
+    androidTestImplementation atsl.runner
+    androidTestImplementation atsl.rules
 }

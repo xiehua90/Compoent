@@ -1,7 +1,7 @@
 package com.example.thinkdo.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,10 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.thinkdo.compoentdemo.R;
-
-import org.w3c.dom.Text;
-
-import java.nio.charset.Charset;
 
 import butterknife.BindView;
 

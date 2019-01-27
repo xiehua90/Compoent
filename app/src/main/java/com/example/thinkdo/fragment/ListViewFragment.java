@@ -3,7 +3,7 @@ package com.example.thinkdo.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;

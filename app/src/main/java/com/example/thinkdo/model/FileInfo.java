@@ -1,10 +1,7 @@
 package com.example.thinkdo.model;
 
 
-import android.support.annotation.NonNull;
-
-import java.text.DecimalFormat;
-import java.util.Comparator;
+import androidx.annotation.NonNull;
 
 /**
  * Created by xh on 2018/3/5.

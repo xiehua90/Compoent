@@ -2,15 +2,10 @@ package com.example.thinkdo.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.ActionMode;
-import android.view.GestureDetector;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;

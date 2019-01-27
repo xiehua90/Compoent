@@ -2,7 +2,7 @@ package com.example.thinkdo.view;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;

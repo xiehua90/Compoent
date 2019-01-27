@@ -4,7 +4,7 @@ import android.app.Fragment;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;

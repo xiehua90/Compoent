@@ -3,7 +3,7 @@ package com.example.thinkdo.fragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +14,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.thinkdo.compoentdemo.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by xh on 2018/4/2.

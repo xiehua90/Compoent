@@ -2,7 +2,7 @@ package com.example.thinkdo.compoentdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.braintreepayments.api.BraintreeFragment;
 import com.braintreepayments.api.exceptions.BraintreeError;

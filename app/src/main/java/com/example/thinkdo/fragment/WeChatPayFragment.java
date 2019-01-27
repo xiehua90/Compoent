@@ -1,12 +1,11 @@
 package com.example.thinkdo.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.thinkdo.compoentdemo.PayActivity;
 import com.example.thinkdo.compoentdemo.R;
 import com.example.thinkdo.utils.Util;
 import com.tencent.mm.opensdk.modelpay.PayReq;

@@ -1,12 +1,9 @@
 package com.example.thinkdo.view;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.EditText;
 

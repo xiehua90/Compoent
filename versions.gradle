@@ -1,0 +1,123 @@
+ext {
+    min_sdk = 19
+    target_sdk = 28
+    build_tools = "28.0.3"
+
+    versions = [
+            volley               : '2015.05.28',
+            fresco               : '0.11.0',
+            espresso             : '3.1.0',
+            glide                : '3.7.0',
+            braintree            : '2.20.1',
+            gradle               : '3.3.0-alpha07',
+            gson                 : '2.8.2',
+            junit                : '4.12',
+            kotlin               : '1.3.20',
+            kotlinx_coroutines: '1.1.1',
+            ktlint               : '0.24.0',
+            ktx                  : '0.3',
+            navigation           : '1.0.0-alpha05',
+            room                 : '2.1.0-alpha03',
+            runner               : '1.0.1',
+            work                 : '1.0.0-alpha07',
+            rxjava2              : '2.2.5',
+            dagger               : '2.21',
+            support              : '1.0.0',
+            lifecycle            : "2.0.0",
+            constraint_layout    : "1.1.2",
+            photoview            : '1.4.0',
+            universal_imageloader: '1.9.5',
+            butterknife          : '10.0.0',
+            tinypinyin           : '2.0.3',
+            autofittextview      : '0.2.1',
+            wechat_sdk           : '1.4.0',
+            quicksidebar         : '1.0.3',
+            atsl                 : '1.1.1',
+            android_gradle_plugin: '3.3.0'
+    ]
+
+    deps = [
+            android_gradle_plugin    : "com.android.tools.build:gradle:$versions.android_gradle_plugin",
+            junit                    : "junit:junit:$versions.junit",
+
+            fresco                   : "com.facebook.fresco:fresco:$versions.fresco",
+            volley                   : "eu.the4thfloor.volley:com.android.volley:$versions.volley",
+            photoview                : "com.bm.photoview:library:$versions.photoview",
+            universal_imageloader    : "com.nostra13.universalimageloader:universal-image-loader:$versions.universal_imageloader",
+            glide                    : "com.github.bumptech.glide:glide:$versions.glide",
+            braintree                : "com.braintreepayments.api:braintree:$versions.braintree",
+
+            quicksidebar             : "com.bigkoo:quicksidebar:$versions.quicksidebar",
+            stickyheadersrecyclerview: 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar',
+            autofittextview          : "me.grantland:autofittextview:$versions.autofittextview",
+            wechat_sdk               : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:$versions.wechat_sdk",
+            constraint_layout        : "androidx.constraintlayout:constraintlayout:$versions.constraint_layout",
+
+            rxjava2                  : "io.reactivex.rxjava2:rxjava:$versions.rxjava2",
+            rx_android               : "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+    ]
+
+    tinypinyin = [
+            runtime       : "com.github.promeg:tinypinyin:$versions.tinypinyin",
+            android_cncity: "com.github.promeg:tinypinyin-lexicons-android-cncity:$versions.tinypinyin",
+            java_cncity   : "com.github.promeg:tinypinyin-lexicons-java-cncity:$versions.tinypinyin"
+    ]
+
+    butterknife = [
+            runtime : "com.jakewharton:butterknife:$versions.butterknife",
+            compiler: "com.jakewharton:butterknife-compiler:$versions.butterknife"
+    ]
+
+    //加下滑线，否则会跟 apply plugin: 'kotlin' 冲突
+    _kotlin = [
+            stdlib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+            test      : "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin",
+            plugin    : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
+            allopen   : "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin",
+            coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlinx_coroutines"
+    ]
+
+    espresso = [
+            core   : "androidx.test.espresso:espresso-core:$versions.espresso",
+            contrib: "androidx.test.espresso:espresso-contrib:$versions.espresso",
+            intents: "androidx.test.espresso:espresso-intents:$versions.espresso"
+    ]
+
+    atsl = [
+            runner: "androidx.test:runner:$versions.atsl",
+            rules : "androidx.test:rules:$versions.atsl"
+    ]
+
+    lifecycle = [
+            runtime   : "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle",
+            extensions: "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle",
+            java8     : "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle",
+            compiler  : "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+    ]
+    dagger = [
+            runtime                 : "com.google.dagger:dagger:$versions.dagger",
+            android                 : "com.google.dagger:dagger-android:$versions.dagger",
+            android_support         : "com.google.dagger:dagger-android-support:$versions.dagger",
+            compiler                : "com.google.dagger:dagger-compiler:$versions.dagger",
+            android_support_compiler: "com.google.dagger:dagger-android-processor:$versions.dagger"
+    ]
+
+    room = [
+            runtime   : "androidx.room:room-runtime:$versions.room",
+            compiler  : "androidx.room:room-compiler:$versions.room",
+            rxjava2   : "androidx.room:room-rxjava2:$versions.room",
+            testing   : "androidx.room:room-testing:$versions.room",
+            coroutines: "androidx.room:room-coroutines:$versions.room"
+    ]
+
+    support = [
+            annotations : "androidx.annotation:annotation:$versions.support",
+            app_compat  : "androidx.appcompat:appcompat:$versions.support",
+            recyclerview: "androidx.recyclerview:recyclerview:$versions.support",
+            cardview    : "androidx.cardview:cardview:$versions.support",
+            design      : "com.google.android.material:material:$versions.support",
+            v4          : "androidx.legacy:legacy-support-v4:$versions.support",
+            core_utils  : "androidx.legacy:legacy-support-core-utils:$versions.support"
+    ]
+
+}

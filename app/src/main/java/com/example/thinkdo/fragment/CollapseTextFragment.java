@@ -1,26 +1,16 @@
 package com.example.thinkdo.fragment;
 
 import android.app.Fragment;
-import android.gesture.Gesture;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.thinkdo.adater.CollapseFraAdapter;
-import com.example.thinkdo.compoentdemo.R;
 import com.example.thinkdo.view.CollapseTextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
