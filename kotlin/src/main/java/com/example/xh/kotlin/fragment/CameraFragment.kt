@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.hardware.Camera
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
@@ -43,6 +44,8 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
                 if (Manifest.permission.CAMERA == value) {
                     if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
                         requestCameraPermissions()
+                    } else {
+                        Log.d("TAG", "onRequestPermissionsResult: $value $grantResults[index]")
                     }
 //                    else if (hasSurface) {
 //                        openCamera()
@@ -58,6 +61,8 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
     override fun onResume() {
         super.onResume()
+
+        Log.d("TAG", "onResume() hasSurface=$hasSurface")
 
         if (hasSurface) {
             openCamera()
@@ -81,7 +86,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
     }
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
-
+        hasSurface = surfaceView.holder.isCreating
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
@@ -97,6 +102,8 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         releaseCameraAndPreview()
         mCamera = Camera.open()
         if (mCamera != null) {
+            Log.d("TAG", "openCamera() $mCamera ${surfaceView.holder.isCreating}")
+
             val parameters = mCamera?.parameters
             parameters?.setPreviewSize(1920, 1080)
             parameters?.pictureFormat = ImageFormat.JPEG
