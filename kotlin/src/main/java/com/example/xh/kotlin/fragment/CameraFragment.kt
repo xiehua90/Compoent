@@ -61,9 +61,6 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
     override fun onResume() {
         super.onResume()
-
-        Log.d("TAG", "onResume() hasSurface=$hasSurface")
-
         if (hasSurface) {
             openCamera()
         } else {
