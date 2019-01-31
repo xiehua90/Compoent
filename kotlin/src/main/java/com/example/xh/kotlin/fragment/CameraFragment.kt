@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.frag_camera.*
 class CameraFragment : Fragment(), SurfaceHolder.Callback {
     var mCamera: Camera? = null
     var mCameraPermission = PackageManager.PERMISSION_DENIED
+    var hasSurface = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +43,10 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
                 if (Manifest.permission.CAMERA == value) {
                     if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
                         requestCameraPermissions()
-                    } else {
-                        mCameraPermission = PackageManager.PERMISSION_GRANTED
                     }
+//                    else if (hasSurface) {
+//                        openCamera()
+//                    }
                 }
             }
         }
@@ -57,8 +59,12 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
     override fun onResume() {
         super.onResume()
 
-        releaseCameraAndPreview()
-        surfaceView.holder.addCallback(this)
+        if (hasSurface) {
+            openCamera()
+        } else {
+            surfaceView.holder.addCallback(this)
+        }
+
     }
 
     override fun onPause() {
@@ -79,17 +85,27 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
+        hasSurface = false
     }
 
     override fun surfaceCreated(holder: SurfaceHolder?) {
-        mCamera = Camera.open()
-        val parameters = mCamera?.parameters
-        parameters?.setPreviewSize(1920, 1080)
-        parameters?.pictureFormat = ImageFormat.JPEG
-        mCamera?.setDisplayOrientation(90)
+        hasSurface = true
+        openCamera()
+    }
 
-        mCamera?.setPreviewDisplay(surfaceView.holder)
-        mCamera?.startPreview()
+    private fun openCamera() {
+        releaseCameraAndPreview()
+        mCamera = Camera.open()
+        if (mCamera != null) {
+            val parameters = mCamera?.parameters
+            parameters?.setPreviewSize(1920, 1080)
+            parameters?.pictureFormat = ImageFormat.JPEG
+            mCamera?.setDisplayOrientation(90)
+
+            mCamera?.setPreviewDisplay(surfaceView.holder)
+            mCamera?.startPreview()
+        }
+
     }
 
     companion object {
