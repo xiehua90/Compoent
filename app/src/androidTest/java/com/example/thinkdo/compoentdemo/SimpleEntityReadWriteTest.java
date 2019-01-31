@@ -28,7 +28,6 @@ public class SimpleEntityReadWriteTest {
 
     @Before
     public void createDb() {
-
         Context context = InstrumentationRegistry.getTargetContext();
         mDb = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
         mUserDao = mDb.getUserDao();

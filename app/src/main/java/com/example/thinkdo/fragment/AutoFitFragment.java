@@ -29,7 +29,6 @@ public class AutoFitFragment extends Fragment implements TextWatcher {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_auto_fit_text, null);
-
         et = (EditText) view.findViewById(com.example.thinkdo.compoentdemo.R.id.editText);
         textView = (AutofitTextView) view.findViewById(R.id.autofitTextView);
 

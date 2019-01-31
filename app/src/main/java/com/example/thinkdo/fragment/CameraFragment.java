@@ -78,8 +78,8 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     public void onResume() {
         super.onResume();
 
-        SurfaceHolder holder = surfaceView.getHolder();
         holder.addCallback(this);
+        SurfaceHolder holder = surfaceView.getHolder();
     }
 
     @Override

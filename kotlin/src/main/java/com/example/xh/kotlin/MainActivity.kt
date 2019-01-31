@@ -3,23 +3,29 @@ package com.example.xh.kotlin
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import com.example.xh.kotlin.R
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import com.example.xh.kotlin.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val list = listOf("CameraFragment", "CameraFragment")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        val adapter = MainAdapter(this)
+        recyclerView.adapter = adapter
+        adapter.listener = object : MainAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+                TransactionsActivity.startIntent(this@MainActivity, list[position])
+            }
         }
+        adapter.submitList(list)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+
         }
     }
 }

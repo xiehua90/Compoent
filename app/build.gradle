@@ -9,13 +9,13 @@ android {
             storePassword 'ytmwxf'
         }
     }
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion target_sdk
+    buildToolsVersion build_tools
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.example.thinkdo.compoentdemo"
-        minSdkVersion 17
-        targetSdkVersion 28
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
         versionCode 1
         versionName "1.0"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }

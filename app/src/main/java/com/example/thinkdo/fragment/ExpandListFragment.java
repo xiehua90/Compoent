@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.thinkdo.adater.Test;
 import com.example.thinkdo.compoentdemo.R;
 
 import butterknife.BindView;
@@ -23,6 +24,8 @@ import butterknife.OnClick;
 public class ExpandListFragment extends BaseFragment {
     @BindView(R.id.expandListView)
     ExpandableListView expandListView;
+    @BindView(R.id.textView)
+    TextView tv;
 
 
     @Override
@@ -64,6 +67,7 @@ public class ExpandListFragment extends BaseFragment {
             }
         });
 
+        tv.setText(Test.sayHello());
     }
 
     @OnClick({R.id.btn})

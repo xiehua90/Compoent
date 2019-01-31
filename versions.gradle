@@ -13,7 +13,7 @@ ext {
             gson                 : '2.8.2',
             junit                : '4.12',
             kotlin               : '1.3.20',
-            kotlinx_coroutines: '1.1.1',
+            kotlinx_coroutines   : '1.1.1',
             ktlint               : '0.24.0',
             ktx                  : '0.3',
             navigation           : '1.0.0-alpha05',
@@ -33,7 +33,8 @@ ext {
             wechat_sdk           : '1.4.0',
             quicksidebar         : '1.0.3',
             atsl                 : '1.1.1',
-            android_gradle_plugin: '3.3.0'
+            android_gradle_plugin: '3.3.0',
+            coordinator_layout   : '1.0.0'
     ]
 
     deps = [
@@ -52,6 +53,7 @@ ext {
             autofittextview          : "me.grantland:autofittextview:$versions.autofittextview",
             wechat_sdk               : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:$versions.wechat_sdk",
             constraint_layout        : "androidx.constraintlayout:constraintlayout:$versions.constraint_layout",
+            coordinator_layout       : "androidx.coordinatorlayout:coordinatorlayout:$versions.coordinator_layout",
 
             rxjava2                  : "io.reactivex.rxjava2:rxjava:$versions.rxjava2",
             rx_android               : "io.reactivex.rxjava2:rxandroid:$versions.rx_android"

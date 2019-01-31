@@ -11,6 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="show" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ExpandableListView
         android:id="@+id/expandListView"
