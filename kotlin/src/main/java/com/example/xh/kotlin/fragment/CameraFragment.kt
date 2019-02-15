@@ -4,18 +4,20 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.hardware.Camera
-import android.media.CamcorderProfile
-import android.media.CamcorderProfile.QUALITY_720P
-import android.media.CamcorderProfile.QUALITY_HIGH_SPEED_720P
+import android.hardware.Camera.Parameters.PREVIEW_FPS_MIN_INDEX
 import android.media.MediaRecorder
+import android.media.MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED
+import android.media.MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.xh.kotlin.R
@@ -26,40 +28,21 @@ import java.util.*
 
 class CameraFragment : Fragment(), SurfaceHolder.Callback {
     var mCamera: Camera? = null
-    var mCameraPermission = PackageManager.PERMISSION_DENIED
+    var permissionList = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     var hasSurface = false
-    var mMediaRecorder: MediaRecorder? = null
+    var outPath: String = ""
+    private var mMediaRecorder: MediaRecorder? = null
+    private val handler: Handler by lazy {
+        Handler()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         requestCameraPermissions()
-    }
-
-    private fun requestCameraPermissions() {
-        mCameraPermission = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.CAMERA)
-
-        if (mCameraPermission != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_CAMERA)
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (PERMISSIONS_REQUEST_CAMERA == requestCode) {
-
-            for ((index, value) in permissions.withIndex()) {
-                if (Manifest.permission.CAMERA == value) {
-                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
-                        requestCameraPermissions()
-                    } else {
-                        Log.d("TAG", "onRequestPermissionsResult: $value $grantResults[index]")
-                    }
-//                    else if (hasSurface) {
-//                        openCamera()
-//                    }
-                }
+        mMediaRecorder?.setOnInfoListener { mr: MediaRecorder, what: Int, extra: Int ->
+            if (what == MEDIA_RECORDER_INFO_MAX_DURATION_REACHED || what == MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) {
+                Toast.makeText(activity!!, "$what $extra $mr", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -78,6 +61,9 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
                 } else {
                     mMediaRecorder?.stop()
                     it.text = "录制"
+                    handler.postDelayed({
+                        tipTextView.visibility = View.INVISIBLE
+                    }, 3000)
                 }
             }
         }
@@ -90,14 +76,20 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         } else {
             surfaceView.holder.addCallback(this)
         }
-
     }
 
     override fun onPause() {
         super.onPause()
 
-        surfaceView.holder.removeCallback(this)
         releaseCameraAndPreview()
+        if (!hasSurface) {
+            surfaceView.holder.removeCallback(this)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mMediaRecorder?.release()
     }
 
     private fun releaseCameraAndPreview() {
@@ -138,31 +130,68 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
     private fun recordVideo() {
         mMediaRecorder = MediaRecorder()
-
         mMediaRecorder?.reset()
         mCamera?.unlock()
 
         mMediaRecorder?.setCamera(mCamera)
+
         mMediaRecorder?.setAudioSource(MediaRecorder.AudioSource.CAMCORDER)
         mMediaRecorder?.setVideoSource(MediaRecorder.VideoSource.CAMERA)
+        mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
-        val profile = CamcorderProfile.get(QUALITY_720P)
-        profile.fileFormat = MediaRecorder.OutputFormat.MPEG_4
-        profile.audioCodec = MediaRecorder.AudioEncoder.AAC
-        profile.videoCodec = MediaRecorder.VideoEncoder.H264
-        profile.videoBitRate = QUALITY_HIGH_SPEED_720P
-        profile.audioBitRate = QUALITY_HIGH_SPEED_720P
+        mMediaRecorder?.setVideoEncoder(MediaRecorder.VideoEncoder.H264)
+        mMediaRecorder?.setVideoEncodingBitRate(2*1024*1024)
 
-        mMediaRecorder?.setProfile(profile)
-        mMediaRecorder?.setOutputFile(getRandomVideoName())
+//        mMediaRecorder?.setVideoFrameRate(20)
+        mMediaRecorder?.setVideoSize(1920,1080)
+
+        mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        mMediaRecorder?.setAudioEncodingBitRate(128*1024)
+
+        outPath = getRandomVideoName()
+        mMediaRecorder?.setOutputFile(outPath)
         mMediaRecorder?.setPreviewDisplay(surfaceView.holder.surface)
-
 
         mMediaRecorder?.prepare()
         mMediaRecorder?.start()
 
+        tipTextView.text = outPath
+        tipTextView.visibility = View.VISIBLE
     }
 
+
+    private fun getVideoMinFrameRate(){
+        val list = mCamera?.parameters?.supportedPreviewFpsRange?.get(PREVIEW_FPS_MIN_INDEX)!!
+
+        for (i in list){
+            Log.d("TAG","$i")
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (PERMISSIONS_REQUEST == requestCode) {
+            for ((index, value) in permissions.withIndex()) {
+                if (value in permissionList) {
+                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
+                        requestCameraPermissions()
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun requestCameraPermissions() {
+        for (permission in permissionList) {
+            val result = ContextCompat.checkSelfPermission(activity!!, permission)
+
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(permissionList, PERMISSIONS_REQUEST)
+            }
+        }
+    }
 
     private fun getRandomVideoName(): String {
         val name = "autel-${SimpleDateFormat("yyyymmddHHmmss", Locale.CHINA).format(Date())}.mp4"
@@ -172,7 +201,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
 
     companion object {
-        const val PERMISSIONS_REQUEST_CAMERA = 0X100
+        const val PERMISSIONS_REQUEST = 0x100
     }
 
 }
