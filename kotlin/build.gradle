@@ -36,7 +36,9 @@ dependencies {
     implementation support.design
     implementation deps.constraint_layout
     implementation deps.coordinator_layout
+    implementation deps.gson
     testImplementation deps.junit
     androidTestImplementation espresso.core
     androidTestImplementation atsl.runner
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
