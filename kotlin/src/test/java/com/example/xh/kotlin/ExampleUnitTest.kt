@@ -10,8 +10,6 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-//        assertEquals(4, 2 + 2)
-
         var array = Array(5) { it * it }
 
         for ((index, value) in array.withIndex()) {
@@ -22,6 +20,5 @@ class ExampleUnitTest {
             if (it == 4) return@forEach
             println(it)
         }
-
     }
 }

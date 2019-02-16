@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.hardware.Camera
 import android.hardware.Camera.Parameters.PREVIEW_FPS_MIN_INDEX
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.media.MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED
 import android.media.MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED
@@ -58,14 +59,20 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
                 if (it.text == "录制") {
                     recordVideo()
                     it.text = "结束"
+                    playBtn.visibility = View.INVISIBLE
                 } else {
                     mMediaRecorder?.stop()
                     it.text = "录制"
                     handler.postDelayed({
                         tipTextView.visibility = View.INVISIBLE
                     }, 3000)
+                    playBtn.visibility = View.VISIBLE
                 }
             }
+        }
+
+        playBtn.setOnClickListener {
+            playVideo()
         }
     }
 
@@ -90,6 +97,12 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
     override fun onStop() {
         super.onStop()
         mMediaRecorder?.release()
+        media.stop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        media.release()
     }
 
     private fun releaseCameraAndPreview() {
@@ -140,13 +153,13 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
         mMediaRecorder?.setVideoEncoder(MediaRecorder.VideoEncoder.H264)
-        mMediaRecorder?.setVideoEncodingBitRate(2*1024*1024)
+        mMediaRecorder?.setVideoEncodingBitRate(2 * 1024 * 1024)
 
 //        mMediaRecorder?.setVideoFrameRate(20)
-        mMediaRecorder?.setVideoSize(1920,1080)
+        mMediaRecorder?.setVideoSize(1920, 1080)
 
         mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-        mMediaRecorder?.setAudioEncodingBitRate(128*1024)
+        mMediaRecorder?.setAudioEncodingBitRate(128 * 1024)
 
         outPath = getRandomVideoName()
         mMediaRecorder?.setOutputFile(outPath)
@@ -160,11 +173,11 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
     }
 
 
-    private fun getVideoMinFrameRate(){
+    private fun getVideoMinFrameRate() {
         val list = mCamera?.parameters?.supportedPreviewFpsRange?.get(PREVIEW_FPS_MIN_INDEX)!!
 
-        for (i in list){
-            Log.d("TAG","$i")
+        for (i in list) {
+            Log.d("TAG", "$i")
         }
     }
 
@@ -182,7 +195,6 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         }
     }
 
-
     private fun requestCameraPermissions() {
         for (permission in permissionList) {
             val result = ContextCompat.checkSelfPermission(activity!!, permission)
@@ -199,6 +211,23 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         return "$dir/$name"
     }
 
+    val media = MediaPlayer()
+
+    private fun playVideo() {
+        if (!media.isPlaying) {
+            media.reset()
+            surfaceView2.visibility = View.VISIBLE
+            media.setOnCompletionListener {
+                surfaceView2.visibility = View.INVISIBLE
+            }
+            media.setDataSource(outPath)
+            media.setDisplay(surfaceView2.holder)
+            media.prepare()
+            media.start()
+        } else {
+            media.stop()
+        }
+    }
 
     companion object {
         const val PERMISSIONS_REQUEST = 0x100
