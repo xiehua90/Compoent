@@ -20,5 +20,21 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.example.xh.kotlin", appContext.packageName)
+
+        //        val jsonStr = "{\"name\":\"Victor Apoyan\"}"
+        //        val client = OkHttpClient.Builder()
+        //                .addInterceptor {
+        //                    val body = ResponseBody.create(MediaType.parse("application/json"), jsonStr.toByteArray())
+        //                    val response = Response.Builder()
+        //                            .code(200)
+        //                            .message(jsonStr)
+        //                            .request(it.request())
+        //                            .protocol(Protocol.HTTP_1_0)
+        //                            .body(body)
+        //                            .addHeader("content-type", "application/json")
+        //                            .build()
+        //                    response
+        //                }
+        //                .build()
     }
 }
