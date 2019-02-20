@@ -1,8 +1,12 @@
 package com.example.thinkdo.fragment;
 
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,5 +44,20 @@ public class AdjustNumBtnFragment extends Fragment {
                 Toast.makeText(getActivity(), "OutofBoundary", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void test() {
+        GradientDrawable drawable = new GradientDrawable();
+
+        drawable.setColor(Color.RED);
+        drawable.setStroke(1, Color.GREEN);
+
+        float cornerRadis = getActivity().getResources().getDisplayMetrics().density * 8;
+
+//        drawable.setCornerRadius(cornerRadis);
+        drawable.setCornerRadii(new float[]{cornerRadis, cornerRadis, cornerRadis, cornerRadis,
+                cornerRadis, cornerRadis, cornerRadis, cornerRadis});
+
+
     }
 }

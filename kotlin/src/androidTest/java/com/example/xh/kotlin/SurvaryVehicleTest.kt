@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.util.ArrayList
 
 @RunWith(AndroidJUnit4::class)
 class SurvaryVehicleTest {
