@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val list = listOf("CameraFragment", "GroupListFragment","SpinnerFragment")
+    private val list = listOf("CameraFragment", "GroupListFragment","SpinnerFragment","ViewPageFragment")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

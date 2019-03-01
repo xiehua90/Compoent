@@ -18,6 +18,7 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.GridView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -39,6 +40,22 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        val gridview = object :GridView{
+            override fun measureChildren(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+                super.measureChildren(widthMeasureSpec, heightMeasureSpec)
+            }
+
+            override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+                super.onLayout(changed, l, t, r, b)
+            }
+
+            override fun layoutChildren() {
+                super.layoutChildren()
+            }
+
+        }
 
         requestCameraPermissions()
         mMediaRecorder?.setOnInfoListener { mr: MediaRecorder, what: Int, extra: Int ->
