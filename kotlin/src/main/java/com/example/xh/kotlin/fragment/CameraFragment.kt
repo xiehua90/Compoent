@@ -42,7 +42,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         super.onCreate(savedInstanceState)
 
 
-        val gridview = object :GridView{
+        val gridview = object :GridView(activity){
             override fun measureChildren(widthMeasureSpec: Int, heightMeasureSpec: Int) {
                 super.measureChildren(widthMeasureSpec, heightMeasureSpec)
             }
