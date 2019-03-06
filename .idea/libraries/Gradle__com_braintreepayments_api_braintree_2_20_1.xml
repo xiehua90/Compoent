@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.braintreepayments.api:braintree-2.20.1">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-braintree-2.20.1.aar/0f344d1ad9ce44ed14f362e1fff9b86c/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-braintree-2.20.1.aar/0f344d1ad9ce44ed14f362e1fff9b86c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-braintree-2.20.1.aar/0f344d1ad9ce44ed14f362e1fff9b86c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.braintreepayments.api/braintree/2.20.1/bf5b9f1531111239aedd4b5998949cfe07cd36a4/braintree-2.20.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -8,6 +8,7 @@ import com.example.thinkdo.model.dragger.zoo.DaggerZooComponent;
 import com.example.thinkdo.model.dragger.zoo.ZooComponent;
 import com.example.thinkdo.model.dragger.zoo.ZooModule;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -39,5 +40,23 @@ public class ExampleUnitTest {
         CoffeeShopComponent shopComponent = DaggerCoffeeShopComponent.builder().coffeeMakerModule(new CoffeeMakerModule()).build();
         shopComponent.maker().makeCoffee();
         shopComponent.maker().makeCoffee();
+    }
+    @Test
+    public void abc() {
+        for (int i = 0; i < 10; i--) {
+            int tem = set(i);
+            int ori = reset(tem);
+            System.out.println(String.format("i = %d, set= %d, reset=%d", i, tem, ori));
+
+        }
+        Assert.assertNotNull("Hello");
+    }
+
+    int set(int value) {
+        return value | 0x01;
+    }
+
+    int reset(int value) {
+        return value & 0xfffffffe;
     }
 }

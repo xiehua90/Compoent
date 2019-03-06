@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.xh.kotlin.R
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Transformations
 import com.example.xh.kotlin.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         adapter.submitList(list)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

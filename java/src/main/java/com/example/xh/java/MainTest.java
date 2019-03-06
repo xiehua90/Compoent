@@ -1,8 +1,6 @@
 package com.example.xh.java;
 
 
-
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
@@ -20,8 +18,33 @@ public class MainTest {
 
     public static void main(String[] args) {
 //        rxJavaTest();
-        daggerTest();
+//        daggerTest();
 
+        get(0xff00);
+    }
+
+
+    static void get(int i) {
+        println(String.format("%x, %x", i, i));
+
+    }
+
+
+    static void abc() {
+        for (int i = 0; i < 256; i++) {
+            int tem = set(i);
+            int ori = reset(tem);
+            System.out.println(String.format("i = %d, set= %d, reset=%d", i, tem, ori));
+
+        }
+    }
+
+    static int set(int value) {
+        return value | 0x02;
+    }
+
+    static int reset(int value) {
+        return value & 0xfffffffd;
     }
 
     public static void daggerTest() {
