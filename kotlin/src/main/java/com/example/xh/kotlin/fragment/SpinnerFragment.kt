@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.example.xh.kotlin.R
+import kotlinx.android.synthetic.main.item_recycler_main.*
 import kotlinx.android.synthetic.main.spinnner.*
 
 class SpinnerFragment : Fragment() {
@@ -29,6 +30,7 @@ class SpinnerFragment : Fragment() {
         setBackground(textView1)
         setBackground2(textView2)
 
+        textView1.text = "${resources.configuration.screenWidthDp}dp * ${resources.configuration.screenHeightDp}dp"
     }
 
 

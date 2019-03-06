@@ -32,6 +32,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     private Camera mCamera;
     AutoFocusManager autoFocusManager;
     ImageView imageView;
+    SurfaceHolder holder;
 
     @Nullable
     @Override

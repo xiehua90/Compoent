@@ -1,20 +1,19 @@
 package com.example.xh.java;
 
 
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.LongStream;
+
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observables.ConnectableObservable;
-import io.reactivex.schedulers.Schedulers;
+
 
 public class MainTest {
+
 
     public static void main(String[] args) {
 //        rxJavaTest();
@@ -47,11 +46,31 @@ public class MainTest {
         return value & 0xfffffffd;
     }
 
-    public static void daggerTest() {
-//        new CoffeeShop().makeCoffee();
+//        println(new Container2().toString());
 
-//        DaggerZooComponent.builder();
+//
+//        TbComponent component = Dagg.Builder().build();
+//        component.make().toString();
+
     }
+//
+//    public static void daggerTest() {
+//        new CoffeeShop().makeCoffee();
+//
+//        DaggerZooComponent.builder();
+//    }
+
+
+    static class Container2 {
+        @Inject
+        DragClass container;
+
+        @Override
+        public String toString() {
+            return container.toString();
+        }
+    }
+
 
     public static void rxJavaTest() {
 

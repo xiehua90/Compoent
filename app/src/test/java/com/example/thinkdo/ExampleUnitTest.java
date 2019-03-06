@@ -4,6 +4,10 @@ package com.example.thinkdo;
 import com.example.thinkdo.model.dragger.CoffeeMakerModule;
 import com.example.thinkdo.model.dragger.CoffeeShopComponent;
 import com.example.thinkdo.model.dragger.DaggerCoffeeShopComponent;
+import com.example.thinkdo.model.dragger.MachineMaker;
+import com.example.thinkdo.model.dragger.mvc.DaggerXComponent;
+import com.example.thinkdo.model.dragger.mvc.XActivity;
+import com.example.thinkdo.model.dragger.mvc.XModule;
 import com.example.thinkdo.model.dragger.zoo.DaggerZooComponent;
 import com.example.thinkdo.model.dragger.zoo.ZooComponent;
 import com.example.thinkdo.model.dragger.zoo.ZooModule;
@@ -26,13 +30,12 @@ public class ExampleUnitTest {
 //        ZooComponent.maker().toString();
 //        DaggerZooComponent.builder().zooModule(new ZooModule()).build().maker().toString();
 
-        ZooModule zooModule = new ZooModule();
-        List<String> list = Arrays.asList("Lion", "Tiger", " Monkey");
-        for (String name : list) {
-            zooModule.setName(name);
-            DaggerZooComponent.builder().zooModule(zooModule).build().maker().toString();
-        }
-
+//        ZooModule zooModule = new ZooModule();
+//        List<String> list = Arrays.asList("Lion", "Tiger", " Monkey");
+//        for (String name : list) {
+//            zooModule.setName(name);
+//            DaggerZooComponent.builder().zooModule(zooModule).build().maker().toString();
+//        }
     }
 
     @Test
@@ -57,6 +60,29 @@ public class ExampleUnitTest {
     }
 
     int reset(int value) {
-        return value & 0xfffffffe;
+	return value & 0xfffffffe;
+	}
+
+
+    @Test
+    public void zooTest(){
+        String str  = DaggerZooComponent.builder().build().maker().toString();
+        Assert.assertNotNull(str);
+
+        str = DaggerZooComponent.create().maker().toString();
+        Assert.assertNotNull(str);
+    }
+
+    @Test
+    public void mvcTest(){
+        XActivity activity = new XActivity();
+        XActivity activity1 = new XActivity();
+        DaggerXComponent.builder().view(activity1).build().inject(activity);
+
+
+        System.out.print(activity.presenter.mActivity.toString());
+        String str = activity.presenter.mActivity.toString();
+        Assert.assertNotNull(activity.coffeeMaker);
+        Assert.assertNotEquals(activity.toString(), activity.presenter.mActivity.toString());
     }
 }
