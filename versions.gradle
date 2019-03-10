@@ -35,7 +35,8 @@ ext {
             atsl                 : '1.1.1',
             android_gradle_plugin: '3.3.0',
             coordinator_layout   : '1.0.0',
-            gson                 : '2.8.5'
+            gson                 : '2.8.5',
+            rich_text            : '3.0.7'
     ]
 
     deps = [
@@ -59,7 +60,8 @@ ext {
             rxjava2                  : "io.reactivex.rxjava2:rxjava:$versions.rxjava2",
             rx_android               : "io.reactivex.rxjava2:rxandroid:$versions.rx_android",
 
-            gson                     : "com.google.code.gson:gson:$versions.gson"
+            gson                     : "com.google.code.gson:gson:$versions.gson",
+            rich_text                : "com.zzhoujay.richtext:richtext:$versions.rich_text"
     ]
 
     tinypinyin = [

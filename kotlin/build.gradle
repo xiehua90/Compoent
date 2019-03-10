@@ -21,7 +21,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             minifyEnabled false
             debuggable = true
         }
@@ -46,4 +46,5 @@ dependencies {
     androidTestImplementation atsl.runner
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
+    implementation deps.rich_text
 }
