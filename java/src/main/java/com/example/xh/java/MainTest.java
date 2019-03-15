@@ -19,32 +19,38 @@ public class MainTest {
 //        rxJavaTest();
 //        daggerTest();
 
-        get(0xff00);
+//        get(0xff00);
+        Object b = null;
+
+        String g = (String)b;
+
+        if (g == null){
+            println("OK");
     }
 
 
-    static void get(int i) {
-        println(String.format("%x, %x", i, i));
+//    static void get(int i) {
+////        println(String.format("%x, %x", i, i));
+//
+//    }
+//
+//
+//    static void abc() {
+//        for (int i = 0; i < 256; i++) {
+//            int tem = set(i);
+//            int ori = reset(tem);
+//            System.out.println(String.format("i = %d, set= %d, reset=%d", i, tem, ori));
+//
+//        }
+//    }
 
-    }
-
-
-    static void abc() {
-        for (int i = 0; i < 256; i++) {
-            int tem = set(i);
-            int ori = reset(tem);
-            System.out.println(String.format("i = %d, set= %d, reset=%d", i, tem, ori));
-
-        }
-    }
-
-    static int set(int value) {
-        return value | 0x02;
-    }
-
-    static int reset(int value) {
-        return value & 0xfffffffd;
-    }
+//    static int set(int value) {
+//        return value | 0x02;
+//    }
+//
+//    static int reset(int value) {
+//        return value & 0xfffffffd;
+//    }
 
 //        println(new Container2().toString());
 

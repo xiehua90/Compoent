@@ -51,6 +51,7 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPicker()
+        btn.setBackgroundResource(R.drawable.selector_btn_bg)
     }
 
     fun initPicker() {
