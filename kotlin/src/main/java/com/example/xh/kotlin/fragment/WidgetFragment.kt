@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.text.Html
 import android.text.SpannableString
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.example.xh.kotlin.BaseFragement
@@ -16,10 +14,108 @@ import java.util.*
 import android.text.Spanned
 import android.text.style.BackgroundColorSpan
 import android.text.style.RelativeSizeSpan
+import android.util.Log
+import android.view.ViewGroup
+import android.widget.*
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.google.android.material.snackbar.Snackbar
+import java.lang.reflect.Array
+import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
 
 
 // https://github.com/xiehua90/Android-PickerView
-class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePicker.OnTimeChangedListener, OnTimeSelectListener {
+class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePicker.OnTimeChangedListener, OnTimeSelectListener, View.OnClickListener {
+
+
+    override fun onClick(v: View?) {
+        val frameLayout = FrameLayout(activity)
+        frameLayout.setBackgroundColor(Color.GRAY)
+        val popupWindow = PopupWindow(frameLayout, 500, 400)
+        popupWindow.isFocusable = true
+        popupWindow.isOutsideTouchable = true
+
+
+        when (v) {
+            btn1 -> {
+                val startDate = Calendar.getInstance()
+                val endDate = Calendar.getInstance()
+                endDate.roll(Calendar.MONTH, 6)
+
+                val timePicker = TimePickerBuilder(activity)
+                { date, v ->
+                    Snackbar.make(view!!, getTime(date), Snackbar.LENGTH_INDEFINITE).show()
+                    popupWindow.dismiss()
+                }
+                        .setType(booleanArrayOf(true, true, true, true, false, false))
+                        .setLabel("年", "月", "日", "时", "分", "")
+                        .setCancelText("取消")
+                        .setSubmitText("确定")
+                        .setRangDate(startDate, endDate)
+                        .setDecorView(frameLayout)
+                        .build()
+                timePicker.setOnDismissListener { ob -> popupWindow.dismiss() }
+                timePicker.show(false)
+
+            }
+            btn2 -> {
+                val startDate = Calendar.getInstance()
+                val endDate = Calendar.getInstance()
+                endDate.roll(Calendar.MONTH, 6)
+
+                val timePicker = TimePickerBuilder(activity)
+                { date, v ->
+                    Snackbar.make(view!!, getTime(date), Snackbar.LENGTH_INDEFINITE).show()
+                    popupWindow.dismiss()
+                }
+                        .setType(booleanArrayOf(true, true, true, false, false, false))
+                        .setLabel("年", "月", "日", "时", "分", "")
+                        .setCancelText("取消")
+                        .setSubmitText("确定")
+                        .setRangDate(startDate, endDate)
+                        .setDecorView(frameLayout)
+                        .build()
+                timePicker.setOnDismissListener { ob -> popupWindow.dismiss() }
+                timePicker.show(false)
+            }
+
+            btn3 -> {
+                var hourList = mutableListOf<Int>()
+                for (i in 1..30) {
+                    hourList.add(i)
+                }
+                var minList = mutableListOf<Int>()
+                for (i in 0 until 60) {
+                    minList.add(i)
+                }
+                val optionPick = OptionsPickerBuilder(activity) { options1, options2, options3, v ->
+                    Snackbar.make(view!!, "${hourList[options1]}时 ${minList[options2]}分", Snackbar.LENGTH_INDEFINITE).show()
+                    popupWindow.dismiss()
+                }
+                        .setCancelText("取消")
+                        .setSubmitText("确定")
+                        .setLabels("时", "分", "")
+                        .setDecorView(frameLayout)
+                        .build<Int>()
+
+
+                optionPick.setNPicker(hourList, minList, null)
+                optionPick.setOnDismissListener { ob -> popupWindow.dismiss() }
+                optionPick.show(false)
+
+            }
+        }
+
+        popupWindow.showAsDropDown(v!!)
+    }
+
+    private fun getTime(date: Date): String {//可根据需要自行截取数据显示
+        Log.d("getTime()", "choice date millis: " + date.time)
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        return format.format(date)
+    }
+
+
     override fun onTimeSelect(date: Date?, v: View?) {
     }
 
@@ -51,7 +147,11 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPicker()
+
         btn.setBackgroundResource(R.drawable.selector_btn_bg)
+        btn1.setOnClickListener(this)
+        btn2.setOnClickListener(this)
+        btn3.setOnClickListener(this)
     }
 
     fun initPicker() {
@@ -89,7 +189,7 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         var temp = text.replace("\n", "<br/>")
         temp = temp.replace(" ", "&nbsp;")
 
-        temp= "<div style=\"color:#000;font-size:20px;\">$temp</div>"
+        temp = "<div style=\"color:#000;font-size:20px;\">$temp</div>"
         return temp
     }
 
