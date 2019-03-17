@@ -15,13 +15,16 @@ import android.text.Spanned
 import android.text.style.BackgroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.bigkoo.pickerview.configure.PickerOptions
+import com.example.xh.kotlin.widget.WheelDialog
+import com.example.xh.kotlin.widget.WheelPopupWindow
+import com.example.xh.kotlin.widget.XWheelTime
 import com.google.android.material.snackbar.Snackbar
-import java.lang.reflect.Array
 import java.text.SimpleDateFormat
-import kotlin.collections.ArrayList
 
 
 // https://github.com/xiehua90/Android-PickerView
@@ -31,7 +34,7 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
     override fun onClick(v: View?) {
         val frameLayout = FrameLayout(activity)
         frameLayout.setBackgroundColor(Color.GRAY)
-        val popupWindow = PopupWindow(frameLayout, 500, 400)
+        val popupWindow = PopupWindow(frameLayout, 700, 400)
         popupWindow.isFocusable = true
         popupWindow.isOutsideTouchable = true
 
@@ -40,7 +43,8 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
             btn1 -> {
                 val startDate = Calendar.getInstance()
                 val endDate = Calendar.getInstance()
-                endDate.roll(Calendar.MONTH, 6)
+                endDate.roll(Calendar.DAY_OF_MONTH, 15)
+                endDate.roll(Calendar.MONTH, 3)
 
                 val timePicker = TimePickerBuilder(activity)
                 { date, v ->
@@ -104,6 +108,37 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
                 optionPick.show(false)
 
             }
+            btn4 -> {
+//                val startDate = Calendar.getInstance()
+//                val endDate = Calendar.getInstance()
+//                endDate.set(2020, 8, 9, 6, 12, 0)
+//
+//                val pickContainerView = LayoutInflater.from(context).inflate(com.bigkoo.pickerview.R.layout.pickerview_time, view as ViewGroup, false)
+//
+//                val options = PickerOptions(PickerOptions.TYPE_PICKER_TIME)
+//                pickContainerView.setBackgroundColor(Color.GRAY)
+//                options.startDate = startDate
+//                options.endDate = endDate
+//                options.type = booleanArrayOf(true, true, true, true, true, true)
+//                val wheelTime = XWheelTime(pickContainerView, options)
+//
+//                val pop = PopupWindow(pickContainerView, 800, ViewGroup.LayoutParams.WRAP_CONTENT)
+//                pop.showAsDropDown(btn4)
+//
+//                pickContainerView.findViewById<View>(R.id.btnSubmit).setOnClickListener {
+//                    Snackbar.make(view as ViewGroup, wheelTime.time, Snackbar.LENGTH_SHORT).show()
+//                    pop.dismiss()
+//                }
+
+
+                val wheelpopupWindow = WheelPopupWindow(activity!!)
+                wheelpopupWindow.isOutsideTouchable = true
+                wheelpopupWindow.showAsDropDown(btn4)
+
+
+                return
+
+            }
         }
 
         popupWindow.showAsDropDown(v!!)
@@ -152,6 +187,7 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         btn1.setOnClickListener(this)
         btn2.setOnClickListener(this)
         btn3.setOnClickListener(this)
+        btn4.setOnClickListener(this)
     }
 
     fun initPicker() {
@@ -191,6 +227,26 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
 
         temp = "<div style=\"color:#000;font-size:20px;\">$temp</div>"
         return temp
+    }
+
+
+    fun xWheelTimeinit(): View {
+        val startDate = Calendar.getInstance()
+        val endDate = Calendar.getInstance()
+        endDate.set(2020, 8, 9, 6, 12, 0)
+
+        val pickContainerView = LayoutInflater.from(context).inflate(com.bigkoo.pickerview.R.layout.pickerview_time, view as ViewGroup, false)
+        val view = pickContainerView.findViewById<LinearLayout>(R.id.timepicker);
+
+        val options = PickerOptions(PickerOptions.TYPE_PICKER_TIME)
+        pickContainerView.setBackgroundColor(Color.GRAY)
+
+        options.startDate = startDate
+        options.endDate = endDate
+        options.type = booleanArrayOf(true, true, true, true, true, true)
+        XWheelTime(pickContainerView, options)
+
+        return pickContainerView
     }
 
 

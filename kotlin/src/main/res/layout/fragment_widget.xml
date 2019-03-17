@@ -8,6 +8,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <Button
+            android:id="@+id/btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="年月日分时关联的选择器"/>
+
+
         <Button
             android:id="@+id/btn"
             android:layout_width="match_parent"
@@ -29,8 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="时分的选择器"/>
-
-
 
 
         <DatePicker
