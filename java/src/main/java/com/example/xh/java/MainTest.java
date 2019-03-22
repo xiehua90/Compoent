@@ -1,32 +1,34 @@
 package com.example.xh.java;
 
-
-
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
+
 
 
 public class MainTest {
 
 
     public static void main(String[] args) {
+
+        float a = 0.6f;
+        System.out.println(String.format("%.0f", a));
+
+//        for (int i = 0; i < 100; i++) {
+//            Calendar calendar = Calendar.getInstance();
+//            System.out.println(calendar.getTimeInMillis());
+//            calendar.set(Calendar.MILLISECOND, 0);
+//            System.out.println(calendar.getTimeInMillis());
+//        }
+
+
 //        rxJavaTest();
 //        daggerTest();
 
 //        get(0xff00);
-        Object b = null;
-
-        String g = (String)b;
-
-        if (g == null){
-            println("OK");
-    }
 
 
 //    static void get(int i) {
