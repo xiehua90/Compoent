@@ -13,7 +13,10 @@ import kotlinx.android.synthetic.main.fragment_widget.*
 import java.util.*
 import android.text.Spanned
 import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
+import android.text.style.URLSpan
+import android.text.util.Linkify
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -144,6 +147,8 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         popupWindow.showAsDropDown(v!!)
     }
 
+
+
     private fun getTime(date: Date): String {//可根据需要自行截取数据显示
         Log.d("getTime()", "choice date millis: " + date.time)
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -168,7 +173,6 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
                 .build()
         timePicker.show()
 
-        getSpanninfo()
 
     }
 
@@ -197,21 +201,29 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         timePicker.setIs24HourView(true)
         timePicker.setOnTimeChangedListener(this)
 
-//        val htmlText = "<h3>Test1</h3><p>hello</p>"
+        val htmlText = "<a href=\"https://zhidao.baidu.com/question/343704535.html\">https://zhidao.baidu.com/question/343704535.html</a>\n"
 //        RichText.from(htmlText).into(textView2)
-        textView2.text = Html.fromHtml(getHtmlText("你们好\n   我很好\nbyte"))
+        textView2.autoLinkMask = Linkify.WEB_URLS
+//        textView2.text = Html.fromHtml(htmlText)
+
+        textView2.text = getSpanninfo()
     }
 
 
     fun getSpanninfo(): SpannableString {
-        val spannableString = SpannableString("设置文字的背景色为淡绿色")
-        val colorSpan = BackgroundColorSpan(Color.parseColor("#AC00FF30"))
+        val spannableString = SpannableString("设置文字的背景色为淡绿色\n" +
+                "无论何时,何地,你只要的说一声,我都会出现在你的身边!")
+        val colorSpan = BackgroundColorSpan(Color.GRAY)
         val sizeSpan04 = RelativeSizeSpan(1.8f)
         val sizeSpan05 = RelativeSizeSpan(1.6f)
+        val foregroundColorSpan = ForegroundColorSpan(Color.RED)
+        val urlSpan = URLSpan("https://www.baidu.com")
 
-        spannableString.setSpan(colorSpan, 1, 3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(sizeSpan04, 5, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(sizeSpan05, 6, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(colorSpan, 1, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(sizeSpan04, 5, 9, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(sizeSpan05, 15, 20, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(foregroundColorSpan,1,10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(urlSpan, 20,28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 
 
         val array = spannableString.getSpans(0, spannableString.length, BackgroundColorSpan::class.java)
