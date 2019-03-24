@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     implementation _kotlin.stdlib
     implementation support.app_compat
     implementation support.design
@@ -47,4 +47,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
     implementation deps.rich_text
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
+
 }

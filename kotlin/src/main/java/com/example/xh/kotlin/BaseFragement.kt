@@ -13,5 +13,5 @@ abstract class BaseFragement:Fragment() {
     }
 
 
-    abstract fun getLayoutResId():Int;
+    abstract fun getLayoutResId():Int
 }
