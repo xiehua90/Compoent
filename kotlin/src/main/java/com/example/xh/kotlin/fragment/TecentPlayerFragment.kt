@@ -23,7 +23,6 @@ class TecentPlayerFragment : BaseFragement() {
             model.videoURL = "http://200024424.vod.myqcloud.com/200024424_709ae516bdf811e6ad39991f76a4df69.f20.mp4"
             playerView.playWithMode(model)
         }
-
     }
 
     override fun onStop() {
