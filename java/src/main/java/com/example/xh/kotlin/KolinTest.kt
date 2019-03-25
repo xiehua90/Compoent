@@ -17,13 +17,17 @@ fun add2(a: Int, b: Int) = a + b
 fun printAdd(a: Int, b: Int) = print("${a + b}")
 
 
+
+
 fun main(args: Array<String>) {
 //    listTest()
 //    forTest()
 //    rangeTest()
 //    isTest()
 
-    suspendTest()
+//    suspendTest()
+
+
 }
 
 fun suspendTest() {
