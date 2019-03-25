@@ -8,35 +8,50 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorAccent" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="年月日分时关联的选择器"/>
+            android:text="年月日分时关联的选择器" />
 
 
         <Button
             android:id="@+id/btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello"/>
-			
-		<Button
+            android:text="Hello" />
+
+        <Button
             android:id="@+id/btn1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="年月日时的选择器"/>
+            android:text="年月日时的选择器" />
+
         <Button
             android:id="@+id/btn2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="年月日的选择器"/>
+            android:text="年月日的选择器" />
+
         <Button
             android:id="@+id/btn3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="时分的选择器"/>
+            android:text="时分的选择器" />
 
 
         <DatePicker
@@ -59,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" />
+
 
     </LinearLayout>
 
