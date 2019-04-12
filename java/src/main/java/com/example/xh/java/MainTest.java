@@ -1,7 +1,15 @@
 package com.example.xh.java;
 
+<<<<<<< Updated upstream
+=======
+
+
+import java.io.File;
+import java.net.URLClassLoader;
+>>>>>>> Stashed changes
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ServiceLoader;
 
 
 import javax.inject.Inject;
@@ -13,6 +21,7 @@ public class MainTest {
 
 
     public static void main(String[] args) {
+<<<<<<< Updated upstream
 
         float a = 0.6f;
         System.out.println(String.format("%.0f", a));
@@ -29,6 +38,14 @@ public class MainTest {
 //        daggerTest();
 
 //        get(0xff00);
+=======
+//        Observable.just("Hello")
+//                .map(it -> it+" World")
+//        .lift();
+
+        ServiceLoader.load()
+    }
+>>>>>>> Stashed changes
 
 
 //    static void get(int i) {

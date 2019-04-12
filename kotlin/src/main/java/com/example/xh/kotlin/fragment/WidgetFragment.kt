@@ -1,5 +1,8 @@
 package com.example.xh.kotlin.fragment
 
+import android.app.IntentService
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
@@ -192,6 +195,19 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         btn2.setOnClickListener(this)
         btn3.setOnClickListener(this)
         btn4.setOnClickListener(this)
+
+        btn_wechat.setOnClickListener {
+            val list = activity!!.packageManager.getInstalledPackages(0)
+
+//            for (item in list) {
+//                Log.d("TAG", item.applicationInfo.packageName)
+//            }
+
+            val existFlag = activity!!.packageManager.getPackageInfo("com.example.xh.kotlin", 0)
+            Log.d("TAG", "existFlag:$existFlag")
+
+
+        }
     }
 
     fun initPicker() {
@@ -222,8 +238,8 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         spannableString.setSpan(colorSpan, 1, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(sizeSpan04, 5, 9, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(sizeSpan05, 15, 20, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(foregroundColorSpan,1,10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(urlSpan, 20,28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(foregroundColorSpan, 1, 10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(urlSpan, 20, 28, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 
 
         val array = spannableString.getSpans(0, spannableString.length, BackgroundColorSpan::class.java)

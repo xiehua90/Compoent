@@ -33,7 +33,7 @@ ext {
             wechat_sdk           : '1.4.0',
             quicksidebar         : '1.0.3',
             atsl                 : '1.1.1',
-            android_gradle_plugin: '3.3.0',
+            android_gradle_plugin: '3.3.2',
             coordinator_layout   : '1.0.0',
             gson                 : '2.8.5',
             rich_text            : '3.0.7'
