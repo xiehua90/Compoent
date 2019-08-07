@@ -7,6 +7,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
         <Button
             android:id="@+id/btn_wechat"
             android:layout_width="wrap_content"
@@ -26,6 +32,13 @@
                 android:background="@color/colorAccent" />
 
         </LinearLayout>
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photo_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/btn4"

@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val list = listOf("CameraFragment", "GroupListFragment", "SpinnerFragment", "ViewPageFragment",
-            "WidgetFragment", "TecentPlayerFragment","ConstraintFragment"
+            "WidgetFragment", "TecentPlayerFragment","ConstraintFragment","RicheditorFragment","CacheFragment",
+            "Timber"
     )
 
 

@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         listView = (ListView) findViewById(R.id.listView);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         listView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, data));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

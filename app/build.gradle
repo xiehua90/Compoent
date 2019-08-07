@@ -61,9 +61,9 @@ dependencies {
     implementation butterknife.runtime
     annotationProcessor butterknife.compiler
 
-    // TinyPinyin核心包，约80KB
-    implementation tinypinyin.runtime
-    implementation tinypinyin.android_cncity
+//    // TinyPinyin核心包，约80KB
+//    implementation tinypinyin.runtime
+//    implementation tinypinyin.android_cncity
 
     implementation deps.quicksidebar
     implementation deps.stickyheadersrecyclerview

@@ -5,8 +5,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Html
-import android.text.SpannableString
+import android.text.*
 import android.view.View
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
@@ -14,7 +13,6 @@ import com.example.xh.kotlin.BaseFragement
 import com.example.xh.kotlin.R
 import kotlinx.android.synthetic.main.fragment_widget.*
 import java.util.*
-import android.text.Spanned
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
@@ -26,10 +24,13 @@ import android.view.ViewGroup
 import android.widget.*
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.configure.PickerOptions
+import com.bumptech.glide.Glide
 import com.example.xh.kotlin.widget.WheelDialog
 import com.example.xh.kotlin.widget.WheelPopupWindow
 import com.example.xh.kotlin.widget.XWheelTime
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_widget.textView2
+import kotlinx.android.synthetic.main.spinnner.*
 import java.text.SimpleDateFormat
 
 
@@ -151,7 +152,6 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
     }
 
 
-
     private fun getTime(date: Date): String {//可根据需要自行截取数据显示
         Log.d("getTime()", "choice date millis: " + date.time)
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -196,6 +196,26 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
         btn3.setOnClickListener(this)
         btn4.setOnClickListener(this)
 
+        editText.filters = arrayOf(InputFilter { source, start, end, dest, dstart, dend ->
+
+            val tem = StringBuffer(dest).replace(dstart, dstart, source.toString())
+
+            if (source != null) {
+                if (source.isNotEmpty()){
+
+                    if (source is Spanned){
+                        val temp = SpannableString(source.toString().toUpperCase())
+                        TextUtils.copySpansFrom(source, start, end,null, temp, 0)
+                        return@InputFilter temp
+                    }
+
+                    return@InputFilter source.toString().toUpperCase()
+                }
+            }
+            null
+        }, InputFilter.LengthFilter(10))
+
+
         btn_wechat.setOnClickListener {
             val list = activity!!.packageManager.getInstalledPackages(0)
 
@@ -206,8 +226,12 @@ class WidgetFragment : BaseFragement(), DatePicker.OnDateChangedListener, TimePi
             val existFlag = activity!!.packageManager.getPackageInfo("com.example.xh.kotlin", 0)
             Log.d("TAG", "existFlag:$existFlag")
 
-
         }
+
+        Glide.with(activity!!)
+                .load("https://image.freepik.com/free-photo/hair-style-street-fashion-beautiful-girl_1139-844.jpg")
+                .centerCrop()
+                .into(photo_view)
     }
 
     fun initPicker() {
