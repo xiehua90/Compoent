@@ -3,8 +3,10 @@ package com.example.xh.kotlin.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
+import android.graphics.Point
 import android.hardware.Camera
 import android.hardware.Camera.Parameters.PREVIEW_FPS_MIN_INDEX
+import android.media.MediaCodec
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.media.MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED
@@ -23,6 +25,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.xh.kotlin.R
+import com.google.zxing.client.android.camera.CameraConfigurationUtils
 import kotlinx.android.synthetic.main.frag_camera.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,6 +36,8 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
     var permissionList = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     var hasSurface = false
     var outPath: String = ""
+    var point : Point? = null
+
     private var mMediaRecorder: MediaRecorder? = null
     private val handler: Handler by lazy {
         Handler()
@@ -130,6 +135,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
         hasSurface = surfaceView.holder.isCreating
+        point = Point(surfaceView.height, surfaceView.width)
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
@@ -138,6 +144,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
     override fun surfaceCreated(holder: SurfaceHolder?) {
         hasSurface = true
+        point = Point(surfaceView.height, surfaceView.width)
         openCamera()
     }
 
@@ -148,12 +155,18 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
             Log.d("TAG", "openCamera() $mCamera ${surfaceView.holder.isCreating}")
 
             val parameters = mCamera?.parameters
-            parameters?.setPreviewSize(1920, 1080)
+
+            val size = CameraConfigurationUtils.findBestPreviewSizeValue(mCamera?.parameters, point)
+
+            parameters?.setPreviewSize(size.x, size.y)
             parameters?.pictureFormat = ImageFormat.JPEG
             mCamera?.setDisplayOrientation(90)
 
             mCamera?.setPreviewDisplay(surfaceView.holder)
+
             mCamera?.startPreview()
+
+
         }
     }
 
@@ -162,6 +175,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
         mMediaRecorder = MediaRecorder()
         mMediaRecorder?.reset()
         mCamera?.unlock()
+
 
         mMediaRecorder?.setCamera(mCamera)
 
@@ -187,6 +201,7 @@ class CameraFragment : Fragment(), SurfaceHolder.Callback {
 
         tipTextView.text = outPath
         tipTextView.visibility = View.VISIBLE
+
     }
 
 

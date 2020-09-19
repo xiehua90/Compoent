@@ -4,19 +4,27 @@ buildscript {
     apply from: 'versions.gradle'
 
     repositories {
+
+
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/google" }
+
         jcenter()
         google()
     }
     dependencies {
-        classpath deps.android_gradle_plugin
+        classpath "com.android.tools.build:gradle:${versions.android_gradle_plugin}"
         classpath _kotlin.plugin
     }
 }
 
 allprojects {
     repositories {
-        maven { url "https://jitpack.io" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/central" }
 
+        maven { url "https://jitpack.io" }
         mavenCentral()
         jcenter()
         google()

@@ -47,35 +47,35 @@ public class GlideFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Glide.with(this)
-                .load(Uri.parse(paths[i++ % 5]))
-                .placeholder(R.drawable.ic_sample_test)
-                .crossFade()
-                .transform(new MyTransformation(getActivity()))
-                .into(imageView);
+//        Glide.with(this)
+//                .load(Uri.parse(paths[i++ % 5]))
+//                .placeholder(R.drawable.ic_sample_test)
+//                .crossFade()
+//                .transform(new MyTransformation(getActivity()))
+//                .into(imageView);
     }
 
-
-    class MyTransformation extends BitmapTransformation {
-        int margin = 4;
-
-        public MyTransformation(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-            margin = (int) (margin * MainApplication.density);
-            Bitmap bitmap = TransformationUtils.fitCenter(toTransform, pool, outWidth, outHeight);
-            Canvas canvas = new Canvas(bitmap);
-            Bitmap mark = BitmapFactory.decodeResource(getResources(), R.drawable.watermark);
-            canvas.drawBitmap(mark, bitmap.getWidth() - mark.getWidth() - margin, bitmap.getHeight() - mark.getHeight() - margin, null);
-            return bitmap;
-        }
-
-        @Override
-        public String getId() {
-            return "com.example.thinkdo.fragment.MyTransformation";
-        }
-    }
+//
+//    class MyTransformation extends BitmapTransformation {
+//        int margin = 4;
+//
+//        public MyTransformation(Context context) {
+//            super(context);
+//        }
+//
+//        @Override
+//        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+//            margin = (int) (margin * MainApplication.density);
+//            Bitmap bitmap = TransformationUtils.fitCenter(toTransform, pool, outWidth, outHeight);
+//            Canvas canvas = new Canvas(bitmap);
+//            Bitmap mark = BitmapFactory.decodeResource(getResources(), R.drawable.watermark);
+//            canvas.drawBitmap(mark, bitmap.getWidth() - mark.getWidth() - margin, bitmap.getHeight() - mark.getHeight() - margin, null);
+//            return bitmap;
+//        }
+//
+//        @Override
+//        public String getId() {
+//            return "com.example.thinkdo.fragment.MyTransformation";
+//        }
+//    }
 }

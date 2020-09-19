@@ -110,14 +110,14 @@ public class RemoteServiceFragment extends Fragment {
         Intent it = new Intent();
         it.setAction("com.example.android.architecture.blueprints.todoapp.service");
         it.setPackage("com.example.android.architecture.blueprints.tododatabinding");
-        getActivity().bindService(it, connection, Activity.BIND_AUTO_CREATE);
+        getActivity().getApplicationContext().bindService(it, connection, Activity.BIND_AUTO_CREATE);
     }
 
     private void attachMessengerService() {
         Intent it = new Intent();
         it.setAction("com.example.android.architecture.blueprints.todoapp.messenger");
         it.setPackage("com.example.android.architecture.blueprints.tododatabinding");
-        getActivity().bindService(it, messengerConnection, Activity.BIND_AUTO_CREATE);
+//        getActivity().bindService(it, messengerConnection, Activity.BIND_AUTO_CREATE);
     }
 
     @Override

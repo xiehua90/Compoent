@@ -1,6 +1,7 @@
 package com.example.thinkdo.fragment;
 
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -42,7 +44,17 @@ public class JsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 log("btn.onClick");
-                webView.loadUrl("javascript:btnAction()");
+//                webView.loadUrl("javascript:btnAction()");
+
+                //或者用下面的方式调用js方法
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                    webView.evaluateJavascript("javascript:btnAction()", new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+                            log("onReceiveValue(): "+value);
+                        }
+                    });
+                }
 
             }
         });

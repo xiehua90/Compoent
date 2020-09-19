@@ -1,4 +1,10 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'checkstyle'
+//
+//def reportDir = "${projectDir}/build/report"
+//def configDir = "${rootDir}/config"
+//
+//preBuild.dependsOn "checkstyle"
 
 android {
     signingConfigs {
@@ -23,6 +29,16 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        sign {
+            keyAlias 'thinkdo'
+            keyPassword 'ytmwxf'
+            storeFile file('/Users/xh/space/androidkey_androidStudio')
+            storePassword 'ytmwxf'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -30,7 +46,7 @@ android {
             signingConfig signingConfigs.signing
         }
         debug {
-//            signingConfig signingConfigs.signing
+            signingConfig signingConfigs.sign
         }
     }
 
@@ -47,6 +63,49 @@ android {
     }
 }
 
+//checkstyle {
+//    toolVersion "8.26"
+//    ignoreFailures = false
+//
+//    // Whether or not rule violations are to be displayed on the console.
+//    showViolations = true
+//}
+//
+//task checkstyle(type: Checkstyle, group: "verification") {
+//    println(reportDir)
+//    println(configDir)
+//
+//    configFile file("${configDir}//checkstyle/checkstyle_google.xml")
+//    configProperties.checkstyleSuppressionsPath = file("${configDir}/checkstyle/suppressions.xml").absolutePath
+//
+//    source 'src'
+//    include '**/*.java'
+//    exclude '**/gen/**'
+//
+//    classpath = files()
+//
+//    reports {
+//        html.enabled = true
+//        xml.enabled = false
+//
+//        html.destination = file("${reportDir}/checkstyle/report_checkstyle.html")
+//        xml.destination = file("${reportDir}/checkstyle/report_checkstyle.xml")
+//
+//    }
+//}
+
+
+//configurations.all {
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        def requested = details.requested
+//        if (requested.group == 'com.android.support') {
+//            if (!requested.name.startsWith("multidex")) {
+//                details.useVersion '27.1.1'
+//            }
+//        }
+//    }
+//}
+
 dependencies {
 //    apply plugin: 'announce'
     implementation project(':xzing')
@@ -56,8 +115,8 @@ dependencies {
     implementation deps.volley
     implementation deps.photoview
     implementation deps.universal_imageloader
-    implementation deps.glide
-    implementation deps.braintree
+    implementation glide.runtime
+//    implementation deps.braintree
     implementation butterknife.runtime
     annotationProcessor butterknife.compiler
 

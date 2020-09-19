@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final String packageName = "com.example.thinkdo.fragment";
     public static final String extra_className = "className";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

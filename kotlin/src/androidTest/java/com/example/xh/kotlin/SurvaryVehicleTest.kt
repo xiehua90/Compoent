@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.example.xh.kotlin.data.VehicleBean
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.junit.Test

@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            step {
+                sh 'gradle clean build'
+            }
+        }
+
+        stage('Test') {
+            /*agent section could go here well*/
+            steps {
+
+            }
+        }
+
+        post {
+            success {
+                echo '开始存档...'
+                archiveArtifacts artifacts: '***/target/*.war'
+            }
+        }
+    }
+}

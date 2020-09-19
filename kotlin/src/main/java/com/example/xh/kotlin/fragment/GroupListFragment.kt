@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xh.kotlin.R
 import com.example.xh.kotlin.adapter.GroupRecyclerAdapter
@@ -21,6 +22,8 @@ class GroupListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+
+        PagerSnapHelper().attachToRecyclerView(recyclerView)
         recyclerView.adapter = Adapter()
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
